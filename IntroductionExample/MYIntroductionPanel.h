@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MYIntroductionPanel : NSObject {
-    UIImage *Image;
-    NSString *Description;
-}
+@interface MYIntroductionPanel : NSObject
+
+@property (nonatomic, retain) UIImage *Image;
+@property (nonatomic, retain) NSString *Description;
 
 -(id)initWithimage:(UIImage *)image description:(NSString *)description;
 

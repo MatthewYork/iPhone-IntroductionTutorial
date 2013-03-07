@@ -21,9 +21,11 @@
 
 @property(nonatomic, retain) UIScrollView *ContentScrollView;
 
+@property(nonatomic, retain) UIPageControl *PageControl;
+
 //Custom Init Methods
-- (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText;
-- (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage;
+- (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels;
+- (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels;
 
 //Header Content
 -(void)setHeaderText:(NSString *)headerText;

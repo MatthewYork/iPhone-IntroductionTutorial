@@ -22,7 +22,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Test Title"];
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Test Title" panels:nil];
     [introductionView showInView:self.view];
 }
 

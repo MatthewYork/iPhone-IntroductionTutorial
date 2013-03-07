@@ -55,6 +55,7 @@
     
     [self buildHeaderViewWithFrame:frame];
     [self buildContentScrollViewWithFrame:frame];
+    [self buildFooterView];
 }
 
 -(void)buildHeaderViewWithFrame:(CGRect)frame{
@@ -79,18 +80,33 @@
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
+    self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, 0)];
+    
     if (self.Panels) {
         if (self.Panels.count > 0) {
+            self.ContentScrollView.backgroundColor = [UIColor greenColor];
             
             
-            self.ContentScrollView.frame = CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, [self ContentScrollViewSizeForPanel:self.Panels[0]]);
+            
+            [self addSubview:self.ContentScrollView];
         }
     }
 }
 
 -(CGFloat)ContentScrollViewSizeForPanel:(MYIntroductionPanel *)panel{
+    CGFloat imageHeight = panel.Image.size.height;
+    CGFloat textHeight = [panel.Description sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0] constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width,1000) lineBreakMode:NSLineBreakByWordWrapping].height;
     
-    return 0.0;
+    if ((imageHeight+textHeight) > (self.frame.size.height - self.ContentScrollView.frame.origin.y - 44)) {
+        return self.frame.size.height - self.ContentScrollView.frame.origin.y - 44;
+    }
+    return imageHeight + textHeight;
+}
+
+-(void)buildFooterView{
+    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + 4), 185, 36)];
+    self.PageControl.numberOfPages = 4; //self.Panels.count;
+    [self addSubview:self.PageControl];
 }
 
 #pragma mark - Header Content
