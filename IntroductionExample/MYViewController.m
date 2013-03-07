@@ -7,6 +7,7 @@
 //
 
 #import "MYViewController.h"
+#import "MYIntroductionView.h"
 
 @interface MYViewController ()
 
@@ -18,6 +19,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Test Title"];
+    [introductionView showInView:self.view];
 }
 
 - (void)didReceiveMemoryWarning
