@@ -24,6 +24,8 @@
 		F02BB24516E94CBF00E3D502 /* TutorialBustedMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24316E94CBF00E3D502 /* TutorialBustedMenu.png */; };
 		F02BB24616E94CBF00E3D502 /* TutorialLeftMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24416E94CBF00E3D502 /* TutorialLeftMenu.png */; };
 		F02BB24816E961B300E3D502 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB24716E961B300E3D502 /* QuartzCore.framework */; };
+		F02BB24A16E9691E00E3D502 /* SampleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */; };
+		F02BB24C16E9692100E3D502 /* SampleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24B16E9692100E3D502 /* SampleIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		F02BB24316E94CBF00E3D502 /* TutorialBustedMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBustedMenu.png; sourceTree = "<group>"; };
 		F02BB24416E94CBF00E3D502 /* TutorialLeftMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialLeftMenu.png; sourceTree = "<group>"; };
 		F02BB24716E961B300E3D502 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SampleIcon@2x.png"; sourceTree = "<group>"; };
+		F02BB24B16E9692100E3D502 /* SampleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 		F02BB20816E847B400E3D502 = {
 			isa = PBXGroup;
 			children = (
+				F02BB24B16E9692100E3D502 /* SampleIcon.png */,
+				F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */,
 				F02BB24716E961B300E3D502 /* QuartzCore.framework */,
 				F02BB21A16E847B400E3D502 /* IntroductionExample */,
 				F02BB21316E847B400E3D502 /* Frameworks */,
@@ -198,6 +204,8 @@
 				F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */,
 				F02BB24516E94CBF00E3D502 /* TutorialBustedMenu.png in Resources */,
 				F02BB24616E94CBF00E3D502 /* TutorialLeftMenu.png in Resources */,
+				F02BB24A16E9691E00E3D502 /* SampleIcon@2x.png in Resources */,
+				F02BB24C16E9692100E3D502 /* SampleIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

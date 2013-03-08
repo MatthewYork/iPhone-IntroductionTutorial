@@ -10,6 +10,8 @@
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
 
+#define PAGE_CONTROL_PADDING 2
+
 @implementation MYIntroductionView
 
 - (id)initWithFrame:(CGRect)frame
@@ -78,6 +80,7 @@
     //Setup HeaderImageView
     self.HeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.HeaderView.frame.size.width, self.HeaderView.frame.size.height)];
     self.HeaderImageView.backgroundColor = [UIColor clearColor];
+    self.HeaderImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.HeaderView addSubview:self.HeaderImageView];
     self.HeaderImageView.hidden = YES;
     
@@ -127,7 +130,7 @@
     //Build panel now that we have all the desired dimensions
     UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, 0)];
     
-    CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - 44;
+    CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
     CGFloat imageHeight = MIN(panel.Image.size.height, self.frame.size.width - 10);
     
     //Build text container;
@@ -175,7 +178,7 @@
 }
 
 -(void)buildFooterView{
-    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + 4), 185, 36)];
+    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
     self.PageControl.numberOfPages = self.Panels.count;
     [self addSubview:self.PageControl];
 }
@@ -186,13 +189,13 @@
     if (animated){
         [UIView animateWithDuration:0.3 animations:^{
             self.ContentScrollView.frame = CGRectMake(self.ContentScrollView.frame.origin.x, self.ContentScrollView.frame.origin.y, self.ContentScrollView.frame.size.width, newPanelHeight);
-            self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + 4), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
+            self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
         }];
     }
     else {
         self.ContentScrollView.frame = CGRectMake(self.ContentScrollView.frame.origin.x, self.ContentScrollView.frame.origin.y, self.ContentScrollView.frame.size.width, newPanelHeight);
         
-        self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + 4), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
+        self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
         
     }
     
