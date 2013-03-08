@@ -23,7 +23,7 @@ Installation
 Sample Images
 ========================
 
-Coming Soon!
+![BackgroundImage](http://imageshack.us/photo/my-images/405/iossimulatorscreenshotm.png/)  ![NoBackgroundImage](http://imageshack.us/photo/my-images/145/iossimulatorscreenshotm.png/)
 
 
 How To Use It?
