@@ -57,11 +57,19 @@ FinishTypeSwipeOut = 0,
     NSInteger LastPanelIndex;
 }
 
+
+/******************************/
+//Properties
+/******************************/
+
 //Delegate
 @property (weak) id <MYIntroductionDelegate> delegate;
 
 //Panel management
 @property (nonatomic, assign) NSInteger CurrentPanelIndex;
+
+//Intoduction Properties
+@property (nonatomic, retain) UIImageView *BackgroundImageView;
 
 //Header properties
 @property (nonatomic, retain) UILabel *HeaderLabel;
@@ -70,12 +78,15 @@ FinishTypeSwipeOut = 0,
 
 //Content properties
 @property (nonatomic, retain) UIScrollView *ContentScrollView;
-@property (nonatomic, retain) UIFont *DescriptionFont;
-@property (nonatomic, retain) UIColor *DescriptionTextColor;
 
 //PageControl/Skip Button
 @property (nonatomic, retain) UIPageControl *PageControl;
 @property (nonatomic, retain) UIButton *SkipButton;
+
+
+/******************************/
+//Methods
+/******************************/
 
 //Custom Init Methods
 - (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels;
@@ -84,6 +95,9 @@ FinishTypeSwipeOut = 0,
 //Header Content
 -(void)setHeaderText:(NSString *)headerText;
 -(void)setHeaderImage:(UIImage *)headerImage;
+
+//Introduction Content
+-(void)setBackgroundImage:(UIImage *)backgroundImage;
 
 //Show/Hide
 -(void)showInView:(UIView *)view;

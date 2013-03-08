@@ -23,8 +23,9 @@
 		F02BB24116E8576100E3D502 /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */; };
 		F02BB24816E961B300E3D502 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB24716E961B300E3D502 /* QuartzCore.framework */; };
 		F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */; };
-		F02BB25D16E99A3400E3D502 /* TutorialBustedMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25B16E99A3400E3D502 /* TutorialBustedMenu.png */; };
-		F02BB25E16E99A3400E3D502 /* TutorialLeftMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25C16E99A3400E3D502 /* TutorialLeftMenu.png */; };
+		F02BB26516E9A53A00E3D502 /* SampleImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB26316E9A53A00E3D502 /* SampleImage2.png */; };
+		F02BB26616E9A53A00E3D502 /* SampleImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB26416E9A53A00E3D502 /* SampleImage1.png */; };
+		F02BB26816E9A67C00E3D502 /* SampleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB26716E9A67C00E3D502 /* SampleBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,8 +52,9 @@
 		F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYIntroductionPanel.m; sourceTree = "<group>"; };
 		F02BB24716E961B300E3D502 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleHeaderImage.png; sourceTree = "<group>"; };
-		F02BB25B16E99A3400E3D502 /* TutorialBustedMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBustedMenu.png; sourceTree = "<group>"; };
-		F02BB25C16E99A3400E3D502 /* TutorialLeftMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialLeftMenu.png; sourceTree = "<group>"; };
+		F02BB26316E9A53A00E3D502 /* SampleImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleImage2.png; sourceTree = "<group>"; };
+		F02BB26416E9A53A00E3D502 /* SampleImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleImage1.png; sourceTree = "<group>"; };
+		F02BB26716E9A67C00E3D502 /* SampleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,9 +118,10 @@
 		F02BB21B16E847B400E3D502 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F02BB25B16E99A3400E3D502 /* TutorialBustedMenu.png */,
-				F02BB25C16E99A3400E3D502 /* TutorialLeftMenu.png */,
+				F02BB26316E9A53A00E3D502 /* SampleImage2.png */,
+				F02BB26416E9A53A00E3D502 /* SampleImage1.png */,
 				F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */,
+				F02BB26716E9A67C00E3D502 /* SampleBackground.png */,
 				F02BB21C16E847B400E3D502 /* IntroductionExample-Info.plist */,
 				F02BB21D16E847B400E3D502 /* InfoPlist.strings */,
 				F02BB22016E847B400E3D502 /* main.m */,
@@ -200,8 +203,9 @@
 				F02BB23116E847B400E3D502 /* MYViewController.xib in Resources */,
 				F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */,
 				F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */,
-				F02BB25D16E99A3400E3D502 /* TutorialBustedMenu.png in Resources */,
-				F02BB25E16E99A3400E3D502 /* TutorialLeftMenu.png in Resources */,
+				F02BB26516E9A53A00E3D502 /* SampleImage2.png in Resources */,
+				F02BB26616E9A53A00E3D502 /* SampleImage1.png in Resources */,
+				F02BB26816E9A67C00E3D502 /* SampleBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

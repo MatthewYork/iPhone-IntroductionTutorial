@@ -40,16 +40,27 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    MYIntroductionPanel *panel = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"TutorialBustedMenu"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfdfasf df"];
+    //STEP 1 Construct Panels
+    MYIntroductionPanel *panel = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage1"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfdfasf df"];
     
-    MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"TutorialLeftMenu"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfd fasf df aljdsfljasdlkfj laksjdfl sljd flajsdjjd sfkjd kkdfkj dkjfj asd asdfasdf  asd s s asasdff dsdafdfa asdfss sddds a s ddsafdasdf asd sd as sdadsad  asdsds a sdfssfd"];
+    MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage2"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfd fasf df aljdsfljasdlkfj laksjdfl sljd flajsdjjd sfkjd kkdfkj dkjfj asd asdfasdf  asd s s asasdff dsdafdfa asdfss sddds a s ddsafdasdf asd sd as sdadsad  asdsds a sdfssfd"];
     
+    //STEP 2 Create IntroductionView
+    
+    /*A standard version*/
     MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerImage:[UIImage imageNamed:@"SampleHeaderImage.png"] panels:@[panel, panel2]];
     
-    //MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Your Application Name" panels:@[panel, panel2]];
+    /*A more customized version*/
+    /*
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Your Application Name" panels:@[panel, panel2]];
+    [introductionView setBackgroundImage:[UIImage imageNamed:@"SampleBackground"]];
+    */
     
+    
+    //Set delegate to self for callbacks (optional)
     introductionView.delegate = self;
     
+    //STEP 3: Show introduction view
     [introductionView showInView:self.view];
 }
 

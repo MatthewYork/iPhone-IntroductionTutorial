@@ -28,6 +28,8 @@
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
 #define HEADER_VIEW_HEIGHT 50
 #define PAGE_CONTROL_PADDING 2
+#define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]
+#define DESCRIPTION_TEXT_COLOR [UIColor whiteColor]
 
 @implementation MYIntroductionView
 @synthesize delegate;
@@ -38,7 +40,7 @@
     if (self) {
         // Initialization code
         [self initializeClassVariables];
-        [self buildUIWithFrame:frame backgroundColor:DEFAULT_BACKGROUND_COLOR];
+        [self buildUIWithFrame:frame];
         
     }
     return self;
@@ -51,7 +53,7 @@
         // Initialization code
         [self initializeClassVariables];
         Panels = [panels copy];
-        [self buildUIWithFrame:frame backgroundColor:DEFAULT_BACKGROUND_COLOR];
+        [self buildUIWithFrame:frame];
         [self setHeaderText:headerText];
     }
     return self;
@@ -64,7 +66,7 @@
         // Initialization code
         [self initializeClassVariables];
         Panels = [panels copy];
-        [self buildUIWithFrame:frame backgroundColor:DEFAULT_BACKGROUND_COLOR];
+        [self buildUIWithFrame:frame];
         [self setHeaderImage:headerImage];
     }
     return self;
@@ -76,23 +78,26 @@
 
 #pragma mark - UI Builder Methods
 
--(void)buildUIWithFrame:(CGRect)frame backgroundColor:(UIColor *)backgroundColor{
-    self.backgroundColor = backgroundColor;
-    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-    if (!self.DescriptionFont) {
-        self.DescriptionFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
-    }
-    if (!self.DescriptionTextColor) {
-         self.DescriptionTextColor = [UIColor whiteColor];
-    }
+-(void)buildUIWithFrame:(CGRect)frame{
+    self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
+    [self buildBackgroundImage];
     [self buildHeaderViewWithFrame:frame];
     [self buildContentScrollViewWithFrame:frame];
     [self buildFooterView];
 }
 
+-(void)buildBackgroundImage{
+    self.BackgroundImageView = [[UIImageView alloc] initWithFrame:self.frame];
+    self.BackgroundImageView.backgroundColor = [UIColor clearColor];
+    self.BackgroundImageView.contentMode = UIViewContentModeScaleToFill;
+    self.BackgroundImageView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self addSubview:self.BackgroundImageView];
+}
+
 -(void)buildHeaderViewWithFrame:(CGRect)frame{
     self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
+    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     self.HeaderView.backgroundColor = [UIColor clearColor];
     
     //Setup HeaderImageView
@@ -120,26 +125,39 @@
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
     self.ContentScrollView.delegate = self;
     
+    //If panels exist, build views for them and add them to the ContentScrollView
     if (Panels) {
         if (Panels.count > 0) {
             
+            //A running x-coordinate. This grows for every page
             CGFloat contentXIndex = 0;
             for (int ii = 0; ii < Panels.count; ii++) {
+                
+                //Create a new view for the panel and add it to the array
                 [panelViews addObject:[self PanelViewForPanel:Panels[ii] atXIndex:&contentXIndex]];
                 
                 //Make only the first panel visible
                 if (ii != 0) {
                     
                 }
+                
+                //Add the newly created panel view to ContentScrollView
                 [self.ContentScrollView addSubview:panelViews[ii]];
             }
             
+            
             [self makePanelVisibleAtIndex:0];
+            
+            //Dynamically sizes the content to fit the text content
             [self setContentScrollViewHeightForPanelIndex:0 animated:NO];
+            
+            //Add a view at the end. This is simply "something to scroll toward" on the final panel.
             [self appendCloseViewAtXIndex:&contentXIndex];
+            
+            //Finally, resize the content size of the scrollview to account for all the new views added to it
             self.ContentScrollView.contentSize = CGSizeMake(contentXIndex, self.ContentScrollView.frame.size.height);
             
-            
+            //Add the ContentScrollView to the introduction view
             [self addSubview:self.ContentScrollView];
         }
     }
@@ -158,8 +176,8 @@
     panelTextView.scrollEnabled = NO;
     panelTextView.backgroundColor = [UIColor clearColor];
     panelTextView.textAlignment = NSTextAlignmentCenter;
-    panelTextView.textColor = self.DescriptionTextColor;
-    panelTextView.font = self.DescriptionFont;
+    panelTextView.textColor = DESCRIPTION_TEXT_COLOR;
+    panelTextView.font = DESCRIPTION_FONT;
     panelTextView.text = panel.Description;
     panelTextView.editable = NO;
     [panelView addSubview:panelTextView];
@@ -248,6 +266,12 @@
     self.HeaderLabel.hidden = YES;
     self.HeaderImageView.hidden = NO;
     self.HeaderImageView.image = headerImage;
+}
+
+#pragma mark - Introduction Content
+
+-(void)setBackgroundImage:(UIImage *)backgroundImage{
+    self.BackgroundImageView.image = backgroundImage;
 }
 
 #pragma mark - Show/Hide
