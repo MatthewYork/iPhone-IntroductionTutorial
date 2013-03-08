@@ -23,7 +23,7 @@ Installation
 Sample Images
 ========================
 
-![BackgroundImage](http://imageshack.us/photo/my-images/405/iossimulatorscreenshotm.png/)  ![NoBackgroundImage](http://imageshack.us/photo/my-images/145/iossimulatorscreenshotm.png/)
+![BackgroundImage](http://imageshack.us/photo/my-images/405/iossimulatorscreenshotm.png/)  ![NoBackgroundImage](http://img145.imageshack.us/img145/8606/iossimulatorscreenshotm.png)
 
 
 How To Use It?
