@@ -22,7 +22,14 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Test Title" panels:nil];
+    
+    MYIntroductionPanel *panel = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"TutorialBustedMenu"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfdfasf df"];
+    
+    MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"TutorialLeftMenu"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfd fasf df aljdsfljasdlkfj laksjdfl sljd flajsdjjd sfkjd kkdfkj dkjfj asd asdfasdf  asd s s asasdff dsdafdfa asdfss sddds a s ddsafdasdf asd sd as sdadsad  asdsds a sdfssfd"];
+    
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"Test Title" panels:@[panel, panel2]];
+    
+    
     [introductionView showInView:self.view];
 }
 

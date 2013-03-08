@@ -10,7 +10,10 @@
 
 @interface MYIntroductionPanel : NSObject
 
+//Image
 @property (nonatomic, retain) UIImage *Image;
+
+//Description
 @property (nonatomic, retain) NSString *Description;
 
 -(id)initWithimage:(UIImage *)image description:(NSString *)description;

@@ -18,6 +18,7 @@
         
         //Set panel Description
         self.Description = [[NSString alloc] initWithString:description];
+        
     }
     
     return self;
