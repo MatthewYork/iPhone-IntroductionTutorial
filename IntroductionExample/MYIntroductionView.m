@@ -2,8 +2,25 @@
 //  MYIntroductionView.m
 //  IntroductionExample
 //
-//  Created by Matthew York on 3/6/13.
-//  Copyright (c) 2013 Matthew York. All rights reserved.
+//  Copyright (C) 2013, Matt York
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+//  of the Software, and to permit persons to whom the Software is furnished to do
+//  so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 //
 
 #import "MYIntroductionView.h"
@@ -13,6 +30,7 @@
 #define PAGE_CONTROL_PADDING 2
 
 @implementation MYIntroductionView
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -32,7 +50,7 @@
     if (self) {
         // Initialization code
         [self initializeClassVariables];
-        self.Panels = [panels copy];
+        Panels = [panels copy];
         [self buildUIWithFrame:frame backgroundColor:DEFAULT_BACKGROUND_COLOR];
         [self setHeaderText:headerText];
     }
@@ -45,7 +63,7 @@
     if (self) {
         // Initialization code
         [self initializeClassVariables];
-        self.Panels = [panels copy];
+        Panels = [panels copy];
         [self buildUIWithFrame:frame backgroundColor:DEFAULT_BACKGROUND_COLOR];
         [self setHeaderImage:headerImage];
     }
@@ -102,12 +120,12 @@
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
     self.ContentScrollView.delegate = self;
     
-    if (self.Panels) {
-        if (self.Panels.count > 0) {
+    if (Panels) {
+        if (Panels.count > 0) {
             
             CGFloat contentXIndex = 0;
-            for (int ii = 0; ii < self.Panels.count; ii++) {
-                [panelViews addObject:[self PanelViewForPanel:self.Panels[ii] atXIndex:&contentXIndex]];
+            for (int ii = 0; ii < Panels.count; ii++) {
+                [panelViews addObject:[self PanelViewForPanel:Panels[ii] atXIndex:&contentXIndex]];
                 
                 //Make only the first panel visible
                 if (ii != 0) {
@@ -137,7 +155,7 @@
     
     //Build text container;
     UITextView *panelTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 10)];
-    panelTextView.scrollEnabled = YES;
+    panelTextView.scrollEnabled = NO;
     panelTextView.backgroundColor = [UIColor clearColor];
     panelTextView.textAlignment = NSTextAlignmentCenter;
     panelTextView.textColor = self.DescriptionTextColor;
@@ -185,9 +203,16 @@
 }
 
 -(void)buildFooterView{
+    //Build Page Control
     self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
-    self.PageControl.numberOfPages = self.Panels.count;
+    self.PageControl.numberOfPages = Panels.count;
     [self addSubview:self.PageControl];
+    
+    //Build Skip Button
+    self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+    [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
+    [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.SkipButton];
 }
 
 -(void)setContentScrollViewHeightForPanelIndex:(NSInteger)panelIndex animated:(BOOL)animated{
@@ -197,18 +222,18 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.ContentScrollView.frame = CGRectMake(self.ContentScrollView.frame.origin.x, self.ContentScrollView.frame.origin.y, self.ContentScrollView.frame.size.width, newPanelHeight);
             self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
+            self.SkipButton.frame = CGRectMake(self.SkipButton.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.SkipButton.frame.size.width, self.SkipButton.frame.size.height);
         }];
     }
     else {
         self.ContentScrollView.frame = CGRectMake(self.ContentScrollView.frame.origin.x, self.ContentScrollView.frame.origin.y, self.ContentScrollView.frame.size.width, newPanelHeight);
         
         self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
+        self.SkipButton.frame = CGRectMake(self.SkipButton.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.SkipButton.frame.size.width, self.SkipButton.frame.size.height);
         
     }
     
     self.ContentScrollView.contentSize = CGSizeMake(self.ContentScrollView.contentSize.width, newPanelHeight);
-    
-NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize));
 }
 
 #pragma mark - Header Content
@@ -242,6 +267,8 @@ NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize
     //Fade out
     [UIView animateWithDuration:duration animations:^{
         self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
     }];
 }
 
@@ -258,6 +285,14 @@ NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize
     }];
 }
 
+-(void)skipIntroduction{
+    if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
+        [delegate introductionDidFinishWithType:FinishTypeSkipButton];
+    }
+    
+    [self hideWithFadeOutDuration:0.3];
+}
+
 #pragma mark - UIScrollView Delegate
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -265,15 +300,28 @@ NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize
     
     //remove self if you are at the end of the introduction
     if (self.CurrentPanelIndex == (panelViews.count)) {
+        if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
+            [delegate introductionDidFinishWithType:FinishTypeSwipeOut];
+        }
+        
         [self removeFromSuperview];
     }
     else {
         
+        //Update Page Control
+        LastPanelIndex = self.PageControl.currentPage;
         self.PageControl.currentPage = self.CurrentPanelIndex;
         
+        //Format and show new content
         [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
-        
         [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+        
+        //Call Back, if applicable
+        if (LastPanelIndex != self.CurrentPanelIndex) { //Keeps from making the callback when just bouncing and not actually changing pages
+            if ([(id)delegate respondsToSelector:@selector(introductionDidChangeToPanel:withIndex:)]) {
+                [delegate introductionDidChangeToPanel:Panels[self.CurrentPanelIndex] withIndex:self.CurrentPanelIndex];
+            }
+        }
     }
 }
 
