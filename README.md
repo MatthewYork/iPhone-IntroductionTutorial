@@ -39,7 +39,7 @@ The introduction view needs something to display, and these are done via panels.
     
 Step 2 - Create Introduction View
 -----------------------
-Once you panels have been created,  you are ready to create the introduction view. An example can be found below.
+Once you panels have been created,  you are ready to create the introduction view. You will pass the panels you just created into this method where they will be rendered (in order) in the introduction view. An example can be found below.
 
     MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerImage:[UIImage imageNamed:@"SampleHeaderImage.png"] panels:@[panel, panel2]];
 
