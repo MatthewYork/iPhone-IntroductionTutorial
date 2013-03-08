@@ -12,6 +12,7 @@
 
 @interface MYIntroductionView : UIView <UIScrollViewDelegate>{
     NSMutableArray *panelViews;
+    
 }
 
 @property (nonatomic, retain) NSArray *Panels;

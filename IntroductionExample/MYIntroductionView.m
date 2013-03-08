@@ -9,7 +9,7 @@
 #import "MYIntroductionView.h"
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
-
+#define HEADER_VIEW_HEIGHT 50
 #define PAGE_CONTROL_PADDING 2
 
 @implementation MYIntroductionView
@@ -74,7 +74,7 @@
 }
 
 -(void)buildHeaderViewWithFrame:(CGRect)frame{
-    self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, 60)]; //Leave 5px padding on all sides
+    self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
     self.HeaderView.backgroundColor = [UIColor clearColor];
     
     //Setup HeaderImageView
@@ -118,7 +118,9 @@
             
             [self makePanelVisibleAtIndex:0];
             [self setContentScrollViewHeightForPanelIndex:0 animated:NO];
+            [self appendCloseViewAtXIndex:&contentXIndex];
             self.ContentScrollView.contentSize = CGSizeMake(contentXIndex, self.ContentScrollView.frame.size.height);
+            
             
             [self addSubview:self.ContentScrollView];
         }
@@ -177,6 +179,14 @@
     return panelView;
 }
 
+-(void)appendCloseViewAtXIndex:(CGFloat*)xIndex{
+    UIView *closeView = [[UIView alloc] initWithFrame:CGRectMake(*xIndex, 0, self.frame.size.width, 400)];
+    
+    [self.ContentScrollView addSubview:closeView];
+    
+     *xIndex += self.ContentScrollView.frame.size.width;
+}
+
 -(void)buildFooterView{
     self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
     self.PageControl.numberOfPages = self.Panels.count;
@@ -231,9 +241,9 @@ NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize
     }];
 }
 
--(void)hide{
+-(void)hideWithFadeOutDuration:(CGFloat)duration{
     //Fade out
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:duration animations:^{
         self.alpha = 0;
     }];
 }
@@ -255,11 +265,25 @@ NSLog(@"content size: %@", NSStringFromCGSize(self.ContentScrollView.contentSize
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     self.CurrentPanelIndex = scrollView.contentOffset.x/self.ContentScrollView.frame.size.width;
-    self.PageControl.currentPage = self.CurrentPanelIndex;
     
-    [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
-    
-    [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+    //remove self if you are at the end of the introduction
+    if (self.CurrentPanelIndex == (panelViews.count)) {
+        [self removeFromSuperview];
+    }
+    else {
+        
+        self.PageControl.currentPage = self.CurrentPanelIndex;
+        
+        [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
+        
+        [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.CurrentPanelIndex == (panelViews.count - 1)) {
+        self.alpha = ((self.ContentScrollView.frame.size.width*panelViews.count)-self.ContentScrollView.contentOffset.x)/self.ContentScrollView.frame.size.width;
+    }
 }
 
 @end

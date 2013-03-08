@@ -21,11 +21,10 @@
 		F02BB23916E847D600E3D502 /* MYIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB23816E847D600E3D502 /* MYIntroductionView.m */; };
 		F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F02BB23A16E8481900E3D502 /* MYIntroductionView.xib */; };
 		F02BB24116E8576100E3D502 /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */; };
-		F02BB24516E94CBF00E3D502 /* TutorialBustedMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24316E94CBF00E3D502 /* TutorialBustedMenu.png */; };
-		F02BB24616E94CBF00E3D502 /* TutorialLeftMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24416E94CBF00E3D502 /* TutorialLeftMenu.png */; };
 		F02BB24816E961B300E3D502 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB24716E961B300E3D502 /* QuartzCore.framework */; };
-		F02BB24A16E9691E00E3D502 /* SampleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */; };
-		F02BB24C16E9692100E3D502 /* SampleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB24B16E9692100E3D502 /* SampleIcon.png */; };
+		F02BB25716E9959500E3D502 /* TutorialBustedMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25516E9959500E3D502 /* TutorialBustedMenu.png */; };
+		F02BB25816E9959500E3D502 /* TutorialLeftMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25616E9959500E3D502 /* TutorialLeftMenu.png */; };
+		F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,11 +49,10 @@
 		F02BB23A16E8481900E3D502 /* MYIntroductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MYIntroductionView.xib; sourceTree = "<group>"; };
 		F02BB23F16E8576100E3D502 /* MYIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYIntroductionPanel.h; sourceTree = "<group>"; };
 		F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYIntroductionPanel.m; sourceTree = "<group>"; };
-		F02BB24316E94CBF00E3D502 /* TutorialBustedMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBustedMenu.png; sourceTree = "<group>"; };
-		F02BB24416E94CBF00E3D502 /* TutorialLeftMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialLeftMenu.png; sourceTree = "<group>"; };
 		F02BB24716E961B300E3D502 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SampleIcon@2x.png"; sourceTree = "<group>"; };
-		F02BB24B16E9692100E3D502 /* SampleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleIcon.png; sourceTree = "<group>"; };
+		F02BB25516E9959500E3D502 /* TutorialBustedMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBustedMenu.png; sourceTree = "<group>"; };
+		F02BB25616E9959500E3D502 /* TutorialLeftMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialLeftMenu.png; sourceTree = "<group>"; };
+		F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleHeaderImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +73,6 @@
 		F02BB20816E847B400E3D502 = {
 			isa = PBXGroup;
 			children = (
-				F02BB24B16E9692100E3D502 /* SampleIcon.png */,
-				F02BB24916E9691E00E3D502 /* SampleIcon@2x.png */,
 				F02BB24716E961B300E3D502 /* QuartzCore.framework */,
 				F02BB21A16E847B400E3D502 /* IntroductionExample */,
 				F02BB21316E847B400E3D502 /* Frameworks */,
@@ -120,8 +116,9 @@
 		F02BB21B16E847B400E3D502 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F02BB24316E94CBF00E3D502 /* TutorialBustedMenu.png */,
-				F02BB24416E94CBF00E3D502 /* TutorialLeftMenu.png */,
+				F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */,
+				F02BB25516E9959500E3D502 /* TutorialBustedMenu.png */,
+				F02BB25616E9959500E3D502 /* TutorialLeftMenu.png */,
 				F02BB21C16E847B400E3D502 /* IntroductionExample-Info.plist */,
 				F02BB21D16E847B400E3D502 /* InfoPlist.strings */,
 				F02BB22016E847B400E3D502 /* main.m */,
@@ -202,10 +199,9 @@
 				F02BB22B16E847B400E3D502 /* Default-568h@2x.png in Resources */,
 				F02BB23116E847B400E3D502 /* MYViewController.xib in Resources */,
 				F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */,
-				F02BB24516E94CBF00E3D502 /* TutorialBustedMenu.png in Resources */,
-				F02BB24616E94CBF00E3D502 /* TutorialLeftMenu.png in Resources */,
-				F02BB24A16E9691E00E3D502 /* SampleIcon@2x.png in Resources */,
-				F02BB24C16E9692100E3D502 /* SampleIcon.png in Resources */,
+				F02BB25716E9959500E3D502 /* TutorialBustedMenu.png in Resources */,
+				F02BB25816E9959500E3D502 /* TutorialLeftMenu.png in Resources */,
+				F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
