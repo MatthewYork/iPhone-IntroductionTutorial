@@ -151,7 +151,7 @@
     int contentWrappedScrollViewHeight = 0;
     if ((imageHeight+textHeight) > maxScrollViewHeight) {
         contentWrappedScrollViewHeight = maxScrollViewHeight;
-        textHeight = contentWrappedScrollViewHeight-imageHeight - 10;
+        imageHeight = contentWrappedScrollViewHeight-textHeight - 10;
     }
     else if ((imageHeight+textHeight) <= maxScrollViewHeight){
         contentWrappedScrollViewHeight = imageHeight + textHeight;
@@ -169,9 +169,6 @@
     [panelView addSubview:panelImageView];
     
     panelTextView.frame = CGRectMake(0, imageHeight + 5, self.ContentScrollView.frame.size.width, textHeight);
-    if (panelTextView.contentSize.height == textHeight) {
-        panelTextView.scrollEnabled = NO;
-    }
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
