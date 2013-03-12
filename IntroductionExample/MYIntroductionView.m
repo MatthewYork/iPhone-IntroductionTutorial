@@ -291,9 +291,7 @@
     //Fade out
     [UIView animateWithDuration:duration animations:^{
         self.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-    }];
+    } completion:nil];
 }
 
 -(void)makePanelVisibleAtIndex:(NSInteger)panelIndex{
@@ -327,8 +325,6 @@
         if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
             [delegate introductionDidFinishWithType:FinishTypeSwipeOut];
         }
-        
-        [self removeFromSuperview];
     }
     else {
         
