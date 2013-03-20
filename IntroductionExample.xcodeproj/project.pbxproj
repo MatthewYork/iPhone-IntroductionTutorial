@@ -19,7 +19,6 @@
 		F02BB22E16E847B400E3D502 /* MYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB22D16E847B400E3D502 /* MYViewController.m */; };
 		F02BB23116E847B400E3D502 /* MYViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F02BB22F16E847B400E3D502 /* MYViewController.xib */; };
 		F02BB23916E847D600E3D502 /* MYIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB23816E847D600E3D502 /* MYIntroductionView.m */; };
-		F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F02BB23A16E8481900E3D502 /* MYIntroductionView.xib */; };
 		F02BB24116E8576100E3D502 /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */; };
 		F02BB24816E961B300E3D502 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB24716E961B300E3D502 /* QuartzCore.framework */; };
 		F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */ = {isa = PBXBuildFile; fileRef = F02BB25916E9991F00E3D502 /* SampleHeaderImage.png */; };
@@ -47,7 +46,6 @@
 		F02BB23016E847B400E3D502 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MYViewController.xib; sourceTree = "<group>"; };
 		F02BB23716E847D600E3D502 /* MYIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYIntroductionView.h; sourceTree = "<group>"; };
 		F02BB23816E847D600E3D502 /* MYIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYIntroductionView.m; sourceTree = "<group>"; };
-		F02BB23A16E8481900E3D502 /* MYIntroductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MYIntroductionView.xib; sourceTree = "<group>"; };
 		F02BB23F16E8576100E3D502 /* MYIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYIntroductionPanel.h; sourceTree = "<group>"; };
 		F02BB24016E8576100E3D502 /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYIntroductionPanel.m; sourceTree = "<group>"; };
 		F02BB24716E961B300E3D502 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -109,7 +107,6 @@
 				F02BB22D16E847B400E3D502 /* MYViewController.m */,
 				F02BB22F16E847B400E3D502 /* MYViewController.xib */,
 				F02BB24216E90F6A00E3D502 /* MYIntroductionView */,
-				F02BB23A16E8481900E3D502 /* MYIntroductionView.xib */,
 				F02BB21B16E847B400E3D502 /* Supporting Files */,
 			);
 			path = IntroductionExample;
@@ -201,7 +198,6 @@
 				F02BB22916E847B400E3D502 /* Default@2x.png in Resources */,
 				F02BB22B16E847B400E3D502 /* Default-568h@2x.png in Resources */,
 				F02BB23116E847B400E3D502 /* MYViewController.xib in Resources */,
-				F02BB23B16E8481900E3D502 /* MYIntroductionView.xib in Resources */,
 				F02BB25A16E9991F00E3D502 /* SampleHeaderImage.png in Resources */,
 				F02BB26816E9A67C00E3D502 /* SampleBackground.png in Resources */,
 				F0558C4716EEBEF100B8BFA3 /* SampleImage1.png in Resources */,
