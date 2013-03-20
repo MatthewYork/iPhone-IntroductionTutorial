@@ -47,7 +47,7 @@ Don't forget to set the delegate to the calling class if you are using delegatio
 
     introductionView.delegate = self;
 
-Step 3 - Showing the Introduction View
+Step 3 - Show the Introduction View
 -----------------------
     
     [introductionView showInView:self.view];
