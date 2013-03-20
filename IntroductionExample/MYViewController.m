@@ -49,14 +49,13 @@
     
     /*A standard version*/
     /*
-    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerImage:[UIImage imageNamed:@"SampleHeaderImage.png"] panels:@[panel, panel2]];
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerImage:[UIImage imageNamed:@"SampleHeaderImage.png"] panels:@[panel, panel2] languageDirection:MYLanguageDirectionLeftToRight];
     */
     
     /*A more customized version*/
     
-    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"MYIntroductionView" panels:@[panel, panel2]];
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"MYIntroductionView" panels:@[panel, panel2] ];
     [introductionView setBackgroundImage:[UIImage imageNamed:@"SampleBackground"]];
-    
     
     
     //Set delegate to self for callbacks (optional)
@@ -74,11 +73,11 @@
 
 #pragma mark - Sample Delegate Methods
 
--(void)introductionDidFinishWithType:(FinishType)finishType{
-    if (finishType == FinishTypeSkipButton) {
+-(void)introductionDidFinishWithType:(MYFinishType)finishType{
+    if (finishType == MYFinishTypeSkipButton) {
         NSLog(@"Did Finish Introduction By Skipping It");
     }
-    else if (finishType == FinishTypeSwipeOut){
+    else if (finishType == MYFinishTypeSwipeOut){
         NSLog(@"Did Finish Introduction By Swiping Out");
     }
     

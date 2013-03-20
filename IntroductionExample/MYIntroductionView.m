@@ -53,6 +53,7 @@
         // Initialization code
         [self initializeClassVariables];
         Panels = [panels copy];
+        LanguageDirection = MYLanguageDirectionLeftToRight;
         [self buildUIWithFrame:frame];
         [self setHeaderText:headerText];
     }
@@ -66,6 +67,35 @@
         // Initialization code
         [self initializeClassVariables];
         Panels = [panels copy];
+        LanguageDirection = MYLanguageDirectionLeftToRight;
+        [self buildUIWithFrame:frame];
+        [self setHeaderImage:headerImage];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self initializeClassVariables];
+        Panels = [panels copy];
+        LanguageDirection = languageDirection;
+        [self buildUIWithFrame:frame];
+        [self setHeaderText:headerText];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self initializeClassVariables];
+        Panels = [panels copy];
+        LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame];
         [self setHeaderImage:headerImage];
     }
@@ -119,48 +149,89 @@
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
+
     self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, 0)];
     self.ContentScrollView.pagingEnabled = YES;
     self.ContentScrollView.showsHorizontalScrollIndicator = NO;
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
     self.ContentScrollView.delegate = self;
     
+
+    
     //If panels exist, build views for them and add them to the ContentScrollView
     if (Panels) {
         if (Panels.count > 0) {
             
-            //A running x-coordinate. This grows for every page
-            CGFloat contentXIndex = 0;
-            for (int ii = 0; ii < Panels.count; ii++) {
-                
-                //Create a new view for the panel and add it to the array
-                [panelViews addObject:[self PanelViewForPanel:Panels[ii] atXIndex:&contentXIndex]];
-                
-                //Make only the first panel visible
-                if (ii != 0) {
-                    
-                }
-                
-                //Add the newly created panel view to ContentScrollView
-                [self.ContentScrollView addSubview:panelViews[ii]];
+            if (LanguageDirection == MYLanguageDirectionLeftToRight) {
+                [self buildContentScrollViewLeftToRight];
             }
-            
-            
-            [self makePanelVisibleAtIndex:0];
-            
-            //Dynamically sizes the content to fit the text content
-            [self setContentScrollViewHeightForPanelIndex:0 animated:NO];
-            
-            //Add a view at the end. This is simply "something to scroll toward" on the final panel.
-            [self appendCloseViewAtXIndex:&contentXIndex];
-            
-            //Finally, resize the content size of the scrollview to account for all the new views added to it
-            self.ContentScrollView.contentSize = CGSizeMake(contentXIndex, self.ContentScrollView.frame.size.height);
-            
-            //Add the ContentScrollView to the introduction view
-            [self addSubview:self.ContentScrollView];
+            else if (LanguageDirection == MYLanguageDirectionRightToLeft) {
+                [self buildContentScrollViewRightToLeft];
+            }
         }
     }
+}
+
+-(void)buildContentScrollViewLeftToRight{
+    //A running x-coordinate. This grows for every page
+    CGFloat contentXIndex = 0;
+    for (int ii = 0; ii < Panels.count; ii++) {
+        
+        //Create a new view for the panel and add it to the array
+        [panelViews addObject:[self PanelViewForPanel:Panels[ii] atXIndex:&contentXIndex]];
+        
+        //Add the newly created panel view to ContentScrollView
+        [self.ContentScrollView addSubview:panelViews[ii]];
+    }
+    
+    
+    [self makePanelVisibleAtIndex:0];
+    
+    //Dynamically sizes the content to fit the text content
+    [self setContentScrollViewHeightForPanelIndex:0 animated:NO];
+    
+    //Add a view at the end. This is simply "something to scroll toward" on the final panel.
+    [self appendCloseViewAtXIndex:&contentXIndex];
+    
+    //Finally, resize the content size of the scrollview to account for all the new views added to it
+    self.ContentScrollView.contentSize = CGSizeMake(contentXIndex, self.ContentScrollView.frame.size.height);
+    
+    //Add the ContentScrollView to the introduction view
+    [self addSubview:self.ContentScrollView];
+}
+
+-(void)buildContentScrollViewRightToLeft{
+    //A running x-coordinate. This grows for every page
+    CGFloat contentXIndex = 0;
+    
+    //Add a view at the end. This is simply "something to scroll toward" on the final panel.
+    [self appendCloseViewAtXIndex:&contentXIndex];
+    
+    NSInteger panelViewIndex = 0;
+    for (int ii = Panels.count-1; ii > -1; ii--) {
+        
+        //Create a new view for the panel and add it to the array
+        [panelViews addObject:[self PanelViewForPanel:Panels[ii] atXIndex:&contentXIndex]];
+        
+        //Add the newly created panel view to ContentScrollView
+        [self.ContentScrollView addSubview:panelViews[panelViewIndex]];
+        panelViewIndex++;
+    }
+    
+    
+    [self makePanelVisibleAtIndex:panelViews.count-1];
+    self.CurrentPanelIndex = panelViews.count-1;
+    self.PageControl.currentPage = panelViews.count -1;
+    
+    //Dynamically sizes the content to fit the text content
+    [self setContentScrollViewHeightForPanelIndex:Panels.count-1 animated:NO];
+    
+    //Finally, resize the content size of the scrollview to account for all the new views added to it
+    self.ContentScrollView.contentSize = CGSizeMake(contentXIndex, self.ContentScrollView.frame.size.height);
+    self.ContentScrollView.contentOffset = CGPointMake(contentXIndex-self.ContentScrollView.frame.size.width, 0);
+    
+    //Add the ContentScrollView to the introduction view
+    [self addSubview:self.ContentScrollView];
 }
 
 -(UIView *)PanelViewForPanel:(MYIntroductionPanel *)panel atXIndex:(CGFloat*)xIndex{
@@ -227,7 +298,13 @@
     [self addSubview:self.PageControl];
     
     //Build Skip Button
-    self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+    if (LanguageDirection == MYLanguageDirectionRightToLeft) {
+        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+    }
+    else {
+        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+    }
+    
     [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
     [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.SkipButton];
@@ -240,6 +317,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.ContentScrollView.frame = CGRectMake(self.ContentScrollView.frame.origin.x, self.ContentScrollView.frame.origin.y, self.ContentScrollView.frame.size.width, newPanelHeight);
             self.PageControl.frame = CGRectMake(self.PageControl.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.PageControl.frame.size.width, self.PageControl.frame.size.height);
+            
             self.SkipButton.frame = CGRectMake(self.SkipButton.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.SkipButton.frame.size.width, self.SkipButton.frame.size.height);
         }];
     }
@@ -295,21 +373,35 @@
 }
 
 -(void)makePanelVisibleAtIndex:(NSInteger)panelIndex{
-    [UIView animateWithDuration:0.3 animations:^{
-        for (int ii = 0; ii < panelViews.count; ii++) {
-            if (ii == panelIndex) {
-                [panelViews[ii] setAlpha:1];
+    if (LanguageDirection == MYLanguageDirectionLeftToRight) {
+        [UIView animateWithDuration:0.3 animations:^{
+            for (int ii = 0; ii < panelViews.count; ii++) {
+                if (ii == panelIndex) {
+                    [panelViews[ii] setAlpha:1];
+                }
+                else {
+                    [panelViews[ii] setAlpha:0];
+                }
             }
-            else {
-                [panelViews[ii] setAlpha:0];
+        }];
+    }
+    else {
+        [UIView animateWithDuration:0.3 animations:^{
+            for (int ii = panelViews.count-1; ii > 0; ii--) {
+                if (ii == panelIndex) {
+                    [panelViews[ii] setAlpha:1];
+                }
+                else {
+                    [panelViews[ii] setAlpha:0];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
 -(void)skipIntroduction{
     if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
-        [delegate introductionDidFinishWithType:FinishTypeSkipButton];
+        [delegate introductionDidFinishWithType:MYFinishTypeSkipButton];
     }
     
     [self hideWithFadeOutDuration:0.3];
@@ -318,36 +410,70 @@
 #pragma mark - UIScrollView Delegate
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.CurrentPanelIndex = scrollView.contentOffset.x/self.ContentScrollView.frame.size.width;
-    
-    //remove self if you are at the end of the introduction
-    if (self.CurrentPanelIndex == (panelViews.count)) {
-        if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
-            [delegate introductionDidFinishWithType:FinishTypeSwipeOut];
+    if (LanguageDirection == MYLanguageDirectionLeftToRight) {
+        self.CurrentPanelIndex = scrollView.contentOffset.x/self.ContentScrollView.frame.size.width;
+        
+        //remove self if you are at the end of the introduction
+        if (self.CurrentPanelIndex == (panelViews.count)) {
+            if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
+                [delegate introductionDidFinishWithType:MYFinishTypeSwipeOut];
+            }
+        }
+        else {
+            //Update Page Control
+            LastPanelIndex = self.PageControl.currentPage;
+            self.PageControl.currentPage = self.CurrentPanelIndex;
+            
+            //Format and show new content
+            [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
+            [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+            
+            //Call Back, if applicable
+            if (LastPanelIndex != self.CurrentPanelIndex) { //Keeps from making the callback when just bouncing and not actually changing pages
+                if ([(id)delegate respondsToSelector:@selector(introductionDidChangeToPanel:withIndex:)]) {
+                    [delegate introductionDidChangeToPanel:Panels[self.CurrentPanelIndex] withIndex:self.CurrentPanelIndex];
+                }
+            }
         }
     }
-    else {
+    else if(LanguageDirection == MYLanguageDirectionRightToLeft){
+        self.CurrentPanelIndex = (scrollView.contentOffset.x-320)/self.ContentScrollView.frame.size.width;
         
-        //Update Page Control
-        LastPanelIndex = self.PageControl.currentPage;
-        self.PageControl.currentPage = self.CurrentPanelIndex;
-        
-        //Format and show new content
-        [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
-        [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
-        
-        //Call Back, if applicable
-        if (LastPanelIndex != self.CurrentPanelIndex) { //Keeps from making the callback when just bouncing and not actually changing pages
-            if ([(id)delegate respondsToSelector:@selector(introductionDidChangeToPanel:withIndex:)]) {
-                [delegate introductionDidChangeToPanel:Panels[self.CurrentPanelIndex] withIndex:self.CurrentPanelIndex];
+        //remove self if you are at the end of the introduction
+        if (self.CurrentPanelIndex == -1) {
+            if ([(id)delegate respondsToSelector:@selector(introductionDidFinishWithType:)]) {
+                [delegate introductionDidFinishWithType:MYFinishTypeSwipeOut];
+            }
+        }
+        else {
+            //Update Page Control
+            LastPanelIndex = self.PageControl.currentPage;
+            self.PageControl.currentPage = self.CurrentPanelIndex;
+            
+            //Format and show new content
+            [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
+            [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+            
+            //Call Back, if applicable
+            if (LastPanelIndex != self.CurrentPanelIndex) { //Keeps from making the callback when just bouncing and not actually changing pages
+                if ([(id)delegate respondsToSelector:@selector(introductionDidChangeToPanel:withIndex:)]) {
+                    [delegate introductionDidChangeToPanel:Panels[self.CurrentPanelIndex] withIndex:self.CurrentPanelIndex];
+                }
             }
         }
     }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.CurrentPanelIndex == (panelViews.count - 1)) {
-        self.alpha = ((self.ContentScrollView.frame.size.width*panelViews.count)-self.ContentScrollView.contentOffset.x)/self.ContentScrollView.frame.size.width;
+    if (LanguageDirection == MYLanguageDirectionLeftToRight) {
+        if (self.CurrentPanelIndex == (panelViews.count - 1)) {
+            self.alpha = ((self.ContentScrollView.frame.size.width*panelViews.count)-self.ContentScrollView.contentOffset.x)/self.ContentScrollView.frame.size.width;
+        }
+    }
+    else if (LanguageDirection == MYLanguageDirectionRightToLeft){
+        if (self.CurrentPanelIndex == 0) {
+            self.alpha = self.ContentScrollView.contentOffset.x/self.ContentScrollView.frame.size.width;
+        }
     }
 }
 

@@ -28,16 +28,21 @@
 #import <QuartzCore/QuartzCore.h>
 
 typedef enum {
-FinishTypeSwipeOut = 0,
-    FinishTypeSkipButton
-}FinishType;
+MYFinishTypeSwipeOut = 0,
+    MYFinishTypeSkipButton
+}MYFinishType;
+
+typedef enum {
+    MYLanguageDirectionLeftToRight = 0,
+    MYLanguageDirectionRightToLeft
+}MYLanguageDirection;
 
 /******************************/
 //Delegate Method Declarations
 /******************************/
 @protocol MYIntroductionDelegate
 @optional
--(void)introductionDidFinishWithType:(FinishType)finishType;
+-(void)introductionDidFinishWithType:(MYFinishType)finishType;
 -(void)introductionDidChangeToPanel:(MYIntroductionPanel *)panel withIndex:(NSInteger)panelIndex;
 @end
 
@@ -55,6 +60,9 @@ FinishTypeSwipeOut = 0,
     
     //Keeps track of the index of the last panel navigated to. For internal use only.
     NSInteger LastPanelIndex;
+    
+    //Variable keeping track of language direction
+    MYLanguageDirection LanguageDirection;
 }
 
 
@@ -91,6 +99,8 @@ FinishTypeSwipeOut = 0,
 //Custom Init Methods
 - (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels;
 - (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels;
+- (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection;
+- (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection;
 
 //Header Content
 -(void)setHeaderText:(NSString *)headerText;
