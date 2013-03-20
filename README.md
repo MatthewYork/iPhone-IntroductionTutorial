@@ -1,7 +1,7 @@
 iPhone-App-Introduction-Tutorial
 ================================
 
-A "drop-in" solution for building stylish app introductions and tutorials.
+A "drop-in" solution for building stylish app introductions and tutorials. Now supports left-to-right and right-to-left languages.
 
 
 Requirements
@@ -46,8 +46,10 @@ Once you panels have been created,  you are ready to create the introduction vie
 Don't forget to set the delegate to the calling class if you are using delegation for any callbacks
 
     introductionView.delegate = self;
+    
+*A note to those using right-to-left languages: There is another init method that includes a language direction variable. It is an enum of type `MYLanguageDirection`. If you wish to use the right-to-left mode, this is where you would instruct the view to do so.
 
-Step 3 - Show the Introduction View
+Step 3 - Show Introduction View
 -----------------------
     
     [introductionView showInView:self.view];
