@@ -23,7 +23,7 @@ Installation
 Sample Images
 ========================
 
-![BackgroundImage](http://img221.imageshack.us/img221/8606/iossimulatorscreenshotm.png)      ![NoBackgroundImage](http://img32.imageshack.us/img32/8606/iossimulatorscreenshotm.png)
+![BackgroundImage](http://img221.imageshack.us/img221/8606/iossimulatorscreenshotm.png)      ![NoBackgroundImage](http://img856.imageshack.us/img856/8606/iossimulatorscreenshotm.png)
 
 
 How To Use It?
@@ -33,11 +33,14 @@ Step 1 - Build Panels
 ------------------------
 The introduction view needs something to display, and these are done via panels. Each panel holds an image and some description text. To create a panel, simply call the `initWithImage:description:` method. Two examples may be seen below;
 
-
+You may initialize a panel without a title
 ```objc
-MYIntroductionPanel *panel = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage1"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfdfasf df"];
-  
-MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage2"] description:@"asd asd a sdfffdasfas fasd fasdf sd fsdfdsfasd asdfdfsdfa asd fdsffdsfa  asdf asdffds asd adfsdfd fasf df aljdsfljasdlkfj laksjdfl sljd flajsdjjd sfkjd kkdfkj dkjfj asd asdfasdf  asd s s asasdff dsdafdfa asdfss sddds a s ddsafdasdf asd sd as sdadsad  asdsds a sdfssfd"];
+MYIntroductionPanel *panel = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage1"] description:@"Welcome to MYIntroductionView, your 100 percent customizable interface for introductions and tutorials! Simply add a few classes to your project, and you are ready to go!"];
+```
+
+Or with a title for extra information
+```objc
+MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage2"] title:@"Your Ticket!" description:@"MYIntroductionView is your ticket to a great tutorial or introduction!"];
 ```    
 
 Step 2 - Create Introduction View
