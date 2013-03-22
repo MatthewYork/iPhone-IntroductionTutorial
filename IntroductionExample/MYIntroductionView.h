@@ -101,6 +101,8 @@ typedef enum {
 - (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels;
 - (id)initWithFrame:(CGRect)frame headerText:(NSString *)headerText panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection;
 - (id)initWithFrame:(CGRect)frame headerImage:(UIImage *)headerImage panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection;
+- (id)initWithFrame:(CGRect)frame panels:(NSArray *)panels;
+- (id)initWithFrame:(CGRect)frame panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection;
 
 //Header Content
 -(void)setHeaderText:(NSString *)headerText;

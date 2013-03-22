@@ -28,6 +28,8 @@
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
 #define HEADER_VIEW_HEIGHT 50
 #define PAGE_CONTROL_PADDING 2
+#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0]
+#define TITLE_TEXT_COLOR [UIColor whiteColor]
 #define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]
 #define DESCRIPTION_TEXT_COLOR [UIColor whiteColor]
 
@@ -40,7 +42,7 @@
     if (self) {
         // Initialization code
         [self initializeClassVariables];
-        [self buildUIWithFrame:frame];
+        [self buildUIWithFrame:frame headerViewVisible:YES];
         
     }
     return self;
@@ -54,7 +56,7 @@
         [self initializeClassVariables];
         Panels = [panels copy];
         LanguageDirection = MYLanguageDirectionLeftToRight;
-        [self buildUIWithFrame:frame];
+        [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
     }
     return self;
@@ -68,7 +70,7 @@
         [self initializeClassVariables];
         Panels = [panels copy];
         LanguageDirection = MYLanguageDirectionLeftToRight;
-        [self buildUIWithFrame:frame];
+        [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
     }
     return self;
@@ -82,7 +84,7 @@
         [self initializeClassVariables];
         Panels = [panels copy];
         LanguageDirection = languageDirection;
-        [self buildUIWithFrame:frame];
+        [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
     }
     return self;
@@ -96,11 +98,40 @@
         [self initializeClassVariables];
         Panels = [panels copy];
         LanguageDirection = languageDirection;
-        [self buildUIWithFrame:frame];
+        [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
     }
     return self;
 }
+
+- (id)initWithFrame:(CGRect)frame panels:(NSArray *)panels
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self initializeClassVariables];
+        Panels = [panels copy];
+        LanguageDirection = MYLanguageDirectionLeftToRight;
+        [self buildUIWithFrame:frame headerViewVisible:NO];
+        [self setHeaderText:nil];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame panels:(NSArray *)panels languageDirection:(MYLanguageDirection)languageDirection
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self initializeClassVariables];
+        Panels = [panels copy];
+        LanguageDirection = languageDirection;
+        [self buildUIWithFrame:frame headerViewVisible:NO];
+        [self setHeaderText:nil];
+    }
+    return self;
+}
+
 
 -(void)initializeClassVariables{
     panelViews = [[NSMutableArray alloc] init];
@@ -108,11 +139,11 @@
 
 #pragma mark - UI Builder Methods
 
--(void)buildUIWithFrame:(CGRect)frame{
+-(void)buildUIWithFrame:(CGRect)frame headerViewVisible:(BOOL)headerViewVisible{
     self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
     [self buildBackgroundImage];
-    [self buildHeaderViewWithFrame:frame];
+    [self buildHeaderViewWithFrame:frame visible:headerViewVisible];
     [self buildContentScrollViewWithFrame:frame];
     [self buildFooterView];
 }
@@ -125,7 +156,12 @@
     [self addSubview:self.BackgroundImageView];
 }
 
--(void)buildHeaderViewWithFrame:(CGRect)frame{
+-(void)buildHeaderViewWithFrame:(CGRect)frame visible:(BOOL)visible{
+    if (!visible) {
+        self.HeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+        return;
+    }
+    
     self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
     self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     self.HeaderView.backgroundColor = [UIColor clearColor];
@@ -239,29 +275,52 @@
     //Build panel now that we have all the desired dimensions
     UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, 0)];
     
-    CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
     CGFloat imageHeight = MIN(panel.Image.size.height, self.frame.size.width - 10);
     
-    //Build text container;
-    UITextView *panelTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 10)];
-    panelTextView.scrollEnabled = NO;
-    panelTextView.backgroundColor = [UIColor clearColor];
-    panelTextView.textAlignment = NSTextAlignmentCenter;
-    panelTextView.textColor = DESCRIPTION_TEXT_COLOR;
-    panelTextView.font = DESCRIPTION_FONT;
-    panelTextView.text = panel.Description;
-    panelTextView.editable = NO;
-    [panelView addSubview:panelTextView];
+    //Build title container (if applicable)
+    CGRect panelTitleLabelFrame;
+    UILabel *panelTitleLabel;
+    if (![panel.Title isEqualToString:@""]) {
+        panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, [panel.Title sizeWithFont:TITLE_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height);
+        panelTitleLabel = [[UILabel alloc] initWithFrame:panelTitleLabelFrame];
+        panelTitleLabel.text = panel.Title;
+        panelTitleLabel.font = TITLE_FONT;
+        panelTitleLabel.textColor = TITLE_TEXT_COLOR;
+        panelTitleLabel.backgroundColor = [UIColor clearColor];
+        panelTitleLabel.textAlignment = NSTextAlignmentCenter;
+        panelTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+    else {
+        panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
+        panelTitleLabel = [[UILabel alloc] initWithFrame:panelTitleLabelFrame];
+    }
+    [panelView addSubview:panelTitleLabel];
+    
+    //Build description container;
+    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 10)];
+    panelDescriptionTextView.scrollEnabled = NO;
+    panelDescriptionTextView.backgroundColor = [UIColor clearColor];
+    panelDescriptionTextView.textAlignment = NSTextAlignmentCenter;
+    panelDescriptionTextView.textColor = DESCRIPTION_TEXT_COLOR;
+    panelDescriptionTextView.font = DESCRIPTION_FONT;
+    panelDescriptionTextView.text = panel.Description;
+    panelDescriptionTextView.editable = NO;
+    [panelView addSubview:panelDescriptionTextView];
     
     //Gather a few layout parameters
-    NSInteger textHeight = panelTextView.contentSize.height;
+    
+    //Get the maximum size the description text could be (screenHeight-panelParentContainerOrigin - footersize)
+    CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
+    
+    
+    NSInteger descriptionHeight = panelDescriptionTextView.contentSize.height;
     int contentWrappedScrollViewHeight = 0;
-    if ((imageHeight+textHeight) > maxScrollViewHeight) {
+    if ((imageHeight + descriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
         contentWrappedScrollViewHeight = maxScrollViewHeight;
-        imageHeight = contentWrappedScrollViewHeight-textHeight - 10;
+        imageHeight = contentWrappedScrollViewHeight-descriptionHeight - panelTitleLabelFrame.size.height - 10;
     }
-    else if ((imageHeight+textHeight) <= maxScrollViewHeight){
-        contentWrappedScrollViewHeight = imageHeight + textHeight;
+    else if ((imageHeight+descriptionHeight + panelTitleLabelFrame.size.height) <= maxScrollViewHeight){
+        contentWrappedScrollViewHeight = imageHeight + panelTitleLabelFrame.size.height + descriptionHeight;
     }
 
     panelView.frame = CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, contentWrappedScrollViewHeight);
@@ -275,7 +334,10 @@
     panelImageView.clipsToBounds = YES;
     [panelView addSubview:panelImageView];
     
-    panelTextView.frame = CGRectMake(0, imageHeight + 5, self.ContentScrollView.frame.size.width, textHeight);
+    
+    //Update frames based on the new/scaled image size we just gathered
+    panelTitleLabel.frame = CGRectMake(10, imageHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
+    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
@@ -300,6 +362,7 @@
     //Build Skip Button
     if (LanguageDirection == MYLanguageDirectionRightToLeft) {
         self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+        self.PageControl.currentPage = panelViews.count - 1;
     }
     else {
         self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "211"
-         endingLineNumber = "211"
+         startingLineNumber = "247"
+         endingLineNumber = "247"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "212"
-         endingLineNumber = "212"
+         startingLineNumber = "248"
+         endingLineNumber = "248"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "217"
-         endingLineNumber = "217"
+         startingLineNumber = "253"
+         endingLineNumber = "253"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "240"
-         endingLineNumber = "240"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
          landmarkName = "-PanelViewForPanel:atXIndex:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
+         startingLineNumber = "250"
+         endingLineNumber = "250"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
+         startingLineNumber = "263"
+         endingLineNumber = "263"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "210"
-         endingLineNumber = "210"
+         startingLineNumber = "246"
+         endingLineNumber = "246"
          landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,12 +99,116 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "IntroductionExample/MYIntroductionView.m"
-         timestampString = "385513355.153037"
+         timestampString = "385607666.806337"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "231"
-         endingLineNumber = "231"
+         startingLineNumber = "267"
+         endingLineNumber = "267"
          landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607666.806337"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "488"
+         endingLineNumber = "488"
+         landmarkName = "-scrollViewDidEndDecelerating:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607666.806337"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "260"
+         endingLineNumber = "260"
+         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607740.817943"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "281"
+         endingLineNumber = "281"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607775.889445"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "317"
+         endingLineNumber = "317"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607836.695637"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "329"
+         endingLineNumber = "329"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385607838.275626"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385608023.530094"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "284"
+         endingLineNumber = "284"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "IntroductionExample/MYIntroductionView.m"
+         timestampString = "385608029.20583"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "283"
+         endingLineNumber = "283"
+         landmarkName = "-PanelViewForPanel:atXIndex:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

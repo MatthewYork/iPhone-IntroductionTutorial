@@ -30,9 +30,14 @@
 //Image
 @property (nonatomic, retain) UIImage *Image;
 
+//Title
+@property (nonatomic, retain) NSString *Title;
+
 //Description
 @property (nonatomic, retain) NSString *Description;
 
+//Custom init method
+-(id)initWithimage:(UIImage *)image title:(NSString *)title description:(NSString *)description;
 -(id)initWithimage:(UIImage *)image description:(NSString *)description;
 
 @end
