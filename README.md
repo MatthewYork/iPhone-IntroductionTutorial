@@ -10,7 +10,14 @@ Requirements
 This project requires ARC and the QuartzCore framework
 
 
-Installation
+CocoaPods
+========================
+If you use CocoaPods, you can install MYIntroduction by inserting config below.
+```
+pod 'MYIntroduction', :git => 'https://github.com/MatthewYork/iPhone-IntroductionTutorial.git'
+```
+
+Manual installation
 ========================
 
 - Add the QuartzCore framework by clicking on your Project File -> Build Phases -> Lnk Binary With Libraries
