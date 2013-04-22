@@ -110,9 +110,10 @@ typedef enum {
 
 //Introduction Content
 -(void)setBackgroundImage:(UIImage *)backgroundImage;
+-(void)setBackgroundColor:(UIColor *)backgroundColor;
 
 //Show/Hide
--(void)showInView:(UIView *)view;
+-(void)showInView:(UIView *)view animateDuration:(CGFloat)duration;
 -(void)hideWithFadeOutDuration:(CGFloat)duration;
 
 @end

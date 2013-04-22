@@ -27,7 +27,7 @@
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
 #define HEADER_VIEW_HEIGHT 50
-#define PAGE_CONTROL_PADDING 2
+#define PAGE_CONTROL_PADDING 1
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0]
 #define TITLE_TEXT_COLOR [UIColor whiteColor]
 #define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]
@@ -43,6 +43,7 @@
         // Initialization code
         [self initializeClassVariables];
         [self buildUIWithFrame:frame headerViewVisible:YES];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         
     }
     return self;
@@ -58,6 +59,7 @@
         LanguageDirection = MYLanguageDirectionLeftToRight;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -72,6 +74,7 @@
         LanguageDirection = MYLanguageDirectionLeftToRight;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -86,6 +89,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -100,6 +104,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -128,6 +133,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:NO];
         [self setHeaderText:nil];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -163,13 +169,14 @@
     }
     
     self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
-    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.HeaderView.backgroundColor = [UIColor clearColor];
     
     //Setup HeaderImageView
     self.HeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.HeaderView.frame.size.width, self.HeaderView.frame.size.height)];
     self.HeaderImageView.backgroundColor = [UIColor clearColor];
     self.HeaderImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.HeaderImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.HeaderView addSubview:self.HeaderImageView];
     self.HeaderImageView.hidden = YES;
     
@@ -179,17 +186,18 @@
     self.HeaderLabel.textColor = [UIColor whiteColor];
     self.HeaderLabel.backgroundColor = [UIColor clearColor];
     self.HeaderLabel.textAlignment = NSTextAlignmentCenter;
+    self.HeaderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.HeaderView addSubview:self.HeaderLabel];
     self.HeaderLabel.hidden = YES;
     [self addSubview:self.HeaderView];
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
-
     self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, 0)];
     self.ContentScrollView.pagingEnabled = YES;
     self.ContentScrollView.showsHorizontalScrollIndicator = NO;
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
+    self.ContentScrollView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.ContentScrollView.delegate = self;
     
 
@@ -297,7 +305,7 @@
     [panelView addSubview:panelTitleLabel];
     
     //Build description container;
-    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 10)];
+    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 0)];
     panelDescriptionTextView.scrollEnabled = NO;
     panelDescriptionTextView.backgroundColor = [UIColor clearColor];
     panelDescriptionTextView.textAlignment = NSTextAlignmentCenter;
@@ -305,6 +313,7 @@
     panelDescriptionTextView.font = DESCRIPTION_FONT;
     panelDescriptionTextView.text = panel.Description;
     panelDescriptionTextView.editable = NO;
+    
     [panelView addSubview:panelDescriptionTextView];
     
     //Gather a few layout parameters
@@ -337,7 +346,7 @@
     
     //Update frames based on the new/scaled image size we just gathered
     panelTitleLabel.frame = CGRectMake(10, imageHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
-    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
+    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width - 0, descriptionHeight);
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
@@ -355,7 +364,8 @@
 
 -(void)buildFooterView{
     //Build Page Control
-    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
+    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.frame.size.width/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 0, 36)];
+    [self.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     self.PageControl.numberOfPages = Panels.count;
     [self addSubview:self.PageControl];
     
@@ -368,6 +378,7 @@
         self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
     }
     
+    [self.SkipButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
     [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.SkipButton];
@@ -391,7 +402,7 @@
         self.SkipButton.frame = CGRectMake(self.SkipButton.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.SkipButton.frame.size.width, self.SkipButton.frame.size.height);
         
     }
-    
+
     self.ContentScrollView.contentSize = CGSizeMake(self.ContentScrollView.contentSize.width, newPanelHeight);
 }
 
@@ -413,17 +424,23 @@
 
 -(void)setBackgroundImage:(UIImage *)backgroundImage{
     self.BackgroundImageView.image = backgroundImage;
+    [self.BackgroundImageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+}
+
+-(void)setBackgroundColor:(UIColor *)backgroundColor {
+    self.BackgroundImageView.backgroundColor = backgroundColor;
+    [self.BackgroundImageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
 }
 
 #pragma mark - Show/Hide
 
--(void)showInView:(UIView *)view{
+-(void)showInView:(UIView *)view animateDuration:(CGFloat)duration{
     //Add introduction view
     self.alpha = 0;
     [view addSubview:self];
     
     //Fade in
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:duration animations:^{
         self.alpha = 1;
     }];
 }
@@ -539,5 +556,6 @@
         }
     }
 }
+
 
 @end
