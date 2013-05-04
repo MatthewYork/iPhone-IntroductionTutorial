@@ -91,6 +91,10 @@ typedef enum {
 @property (nonatomic, retain) UIPageControl *PageControl;
 @property (nonatomic, retain) UIButton *SkipButton;
 
+//Nuts & Bolts
+@property BOOL device;
+@property BOOL device_orientation;
+
 
 /******************************/
 //Methods
@@ -115,5 +119,6 @@ typedef enum {
 //Show/Hide
 -(void)showInView:(UIView *)view animateDuration:(CGFloat)duration;
 -(void)hideWithFadeOutDuration:(CGFloat)duration;
+
 
 @end

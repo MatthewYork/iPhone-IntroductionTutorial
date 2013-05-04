@@ -26,15 +26,15 @@
 #import "MYIntroductionView.h"
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
-#define HEADER_VIEW_HEIGHT 50
+#define HEADER_VIEW_HEIGHT 45
 #define PAGE_CONTROL_PADDING 1
-#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0]
+#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
 #define TITLE_TEXT_COLOR [UIColor whiteColor]
-#define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]
+#define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0]
 #define DESCRIPTION_TEXT_COLOR [UIColor whiteColor]
 
 @implementation MYIntroductionView
-@synthesize delegate;
+@synthesize delegate, device, device_orientation;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -44,7 +44,6 @@
         [self initializeClassVariables];
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-        
     }
     return self;
 }
@@ -141,9 +140,35 @@
 
 -(void)initializeClassVariables{
     panelViews = [[NSMutableArray alloc] init];
+    self.device = [self getCurrentDevice];
+    self.device_orientation = [self getCurrentOrientation];
 }
 
 #pragma mark - UI Builder Methods
+
+-(BOOL)getCurrentDevice {
+    return [[UIDevice currentDevice] userInterfaceIdiom]; //iPhone 1; iPad 0;
+}
+
+-(BOOL)getCurrentOrientation {
+    switch ([[UIApplication sharedApplication] statusBarOrientation]) {
+        case UIInterfaceOrientationPortrait:
+            return 0;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return 0;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            return 1;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            return 1;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
 
 -(void)buildUIWithFrame:(CGRect)frame headerViewVisible:(BOOL)headerViewVisible{
     self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
@@ -193,19 +218,32 @@
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
-    self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, 0)];
+    float centerPadding = frame.size.width;
+    float outerPadding = 0;
+    if (self.device == 0) { // iPhone
+        if (self.device_orientation == 1) { // 1 for landscape
+           self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
+        } else {
+            self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
+        }
+    } else { // iPad
+        if (self.device_orientation == 1) { // 1 for landscape
+            centerPadding = self.frame.size.height;
+            outerPadding = (self.frame.size.width - self.frame.size.height)/2;
+            NSLog(@"C:%f, O:%f", centerPadding, outerPadding);
+        }
+        self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(outerPadding, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, centerPadding, 0)];
+    }
+    
     self.ContentScrollView.pagingEnabled = YES;
     self.ContentScrollView.showsHorizontalScrollIndicator = NO;
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
     self.ContentScrollView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.ContentScrollView.delegate = self;
     
-
-    
     //If panels exist, build views for them and add them to the ContentScrollView
     if (Panels) {
         if (Panels.count > 0) {
-            
             if (LanguageDirection == MYLanguageDirectionLeftToRight) {
                 [self buildContentScrollViewLeftToRight];
             }
@@ -215,6 +253,7 @@
         }
     }
 }
+
 
 -(void)buildContentScrollViewLeftToRight{
     //A running x-coordinate. This grows for every page
@@ -313,6 +352,7 @@
     panelDescriptionTextView.font = DESCRIPTION_FONT;
     panelDescriptionTextView.text = panel.Description;
     panelDescriptionTextView.editable = NO;
+    [panelDescriptionTextView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     
     [panelView addSubview:panelDescriptionTextView];
     
@@ -346,7 +386,7 @@
     
     //Update frames based on the new/scaled image size we just gathered
     panelTitleLabel.frame = CGRectMake(10, imageHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
-    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width - 0, descriptionHeight);
+    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
@@ -364,10 +404,15 @@
 
 -(void)buildFooterView{
     //Build Page Control
-    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.frame.size.width/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 0, 36)];
+    if (self.device == 1) {
+        self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.frame.size.width, 36)];
+    } else {
+        self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
+    }
     [self.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     self.PageControl.numberOfPages = Panels.count;
     [self addSubview:self.PageControl];
+    
     
     //Build Skip Button
     if (LanguageDirection == MYLanguageDirectionRightToLeft) {
@@ -375,10 +420,11 @@
         self.PageControl.currentPage = panelViews.count - 1;
     }
     else {
-        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+//        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.height - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
     }
     
-    [self.SkipButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.SkipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
     [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.SkipButton];
