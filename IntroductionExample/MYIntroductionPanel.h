@@ -40,4 +40,5 @@
 -(id)initWithimage:(UIImage *)image title:(NSString *)title description:(NSString *)description;
 -(id)initWithimage:(UIImage *)image description:(NSString *)description;
 
+
 @end
