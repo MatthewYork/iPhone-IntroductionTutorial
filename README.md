@@ -1,21 +1,8 @@
-iPhone-App-Introduction-Tutorial
+iPhone-App-Introduction-Tutorial+orientation
 ================================
 
-A "drop-in" solution for building stylish app introductions and tutorials. Now supports left-to-right and right-to-left languages.
+This version has support for all apple ios devices and orientation on portrait and landscape
 
-
-Requirements
-========================
-
-This project requires ARC and the QuartzCore framework
-
-
-CocoaPods
-========================
-If you use CocoaPods, you can install MYIntroduction by inserting config below.
-```
-pod 'MYIntroduction', :git => 'https://github.com/MatthewYork/iPhone-IntroductionTutorial.git'
-```
 
 Manual installation
 ========================
@@ -30,8 +17,7 @@ Manual installation
 Sample Images
 ========================
 
-![BackgroundImage](http://img221.imageshack.us/img221/8606/iossimulatorscreenshotm.png)      ![NoBackgroundImage](http://img856.imageshack.us/img856/8606/iossimulatorscreenshotm.png)
-
+![BackgroundImage](http://img221.imageshack.us/img221/8606/iossimulatorscreenshotm.png)  
 
 How To Use It?
 ========================
@@ -71,10 +57,3 @@ Step 3 - Show Introduction View
 ```objc
 [introductionView showInView:self.view];
 ```
-
-And that's it!
-
-Modifying and Extending
-========================
-
-Most UI Elements were left as properties to aid in customization. Try them out for yourself!
