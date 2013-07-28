@@ -11,6 +11,12 @@ Features Include:
 - Delegate methods for handling current page and completion events
 - Easy UIView implementation that works with or without storyboards
 
+CocoaPods
+========================
+If you use CocoaPods, you can install MYIntroduction by inserting config below.
+```
+pod 'MYIntroduction', :git => 'https://github.com/MatthewYork/iPhone-IntroductionTutorial.git'
+```
 
 Manual installation
 ========================
