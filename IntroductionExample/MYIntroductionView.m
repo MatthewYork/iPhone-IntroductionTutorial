@@ -183,7 +183,7 @@
     self.HeaderLabel.hidden = YES;
     [self addSubview:self.HeaderView];
     
-    // Add a drop shadow to the title text
+    // Add a drop shadow to the header text
     self.HeaderLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
     self.HeaderLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
     self.HeaderLabel.layer.shadowOpacity = 1.0f;
