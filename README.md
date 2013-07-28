@@ -27,7 +27,7 @@ Manual installation
 - `#import "MYIntroductionView.h"` to use it in a class
 - Subscribe to the 'MYIntroductionDelegate' to enable delegate/callback interaction.
 
-How To Use It?
+How To Use It
 ========================
 
 Step 1 - Build Panels
