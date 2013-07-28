@@ -1,4 +1,4 @@
-iPhone Introduction/Tutorial (MYIntroductionView)
+iPhone Introduction / Tutorial (MYIntroductionView)
 ================================
 
 ![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)
