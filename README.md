@@ -1,4 +1,4 @@
-iPhone-App-Introduction-Tutorial+orientation
+iPhone-App-Introduction-Tutorial
 ================================
 
 This version has support for all apple ios devices and orientation on portrait and landscape
