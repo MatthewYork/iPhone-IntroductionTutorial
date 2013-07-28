@@ -182,6 +182,12 @@
     [self.HeaderView addSubview:self.HeaderLabel];
     self.HeaderLabel.hidden = YES;
     [self addSubview:self.HeaderView];
+    
+    // Add a drop shadow to the title text
+    self.HeaderLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
+    self.HeaderLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    self.HeaderLabel.layer.shadowOpacity = 1.0f;
+    self.HeaderLabel.layer.shadowRadius = 1.0f;
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
@@ -292,9 +298,9 @@
         
         // Add a drop shadow to the title text
         panelTitleLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
-        panelTitleLabel.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-        panelTitleLabel.layer.shadowOpacity = 2.0f;
-        panelTitleLabel.layer.shadowRadius = 2.0f;
+        panelTitleLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+        panelTitleLabel.layer.shadowOpacity = 1.0f;
+        panelTitleLabel.layer.shadowRadius = 1.0f;
     }
     else {
         panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
@@ -316,9 +322,9 @@
     // Add a drop shadow to the description text
     panelDescriptionTextView.userInteractionEnabled = false;
     panelDescriptionTextView.layer.shadowColor = [[UIColor blackColor]CGColor];
-    panelDescriptionTextView.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-    panelDescriptionTextView.layer.shadowOpacity = 2.0f;
-    panelDescriptionTextView.layer.shadowRadius = 2.0f;
+    panelDescriptionTextView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    panelDescriptionTextView.layer.shadowOpacity = 1.0f;
+    panelDescriptionTextView.layer.shadowRadius = 1.0f;
     
     //Gather a few layout parameters
     //Get the maximum size the description text could be (screenHeight-panelParentContainerOrigin - footersize)
