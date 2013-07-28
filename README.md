@@ -1,7 +1,15 @@
 iPhone-App-Introduction-Tutorial
 ================================
 
-This version has support for all apple ios devices and orientation on portrait and landscape
+![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)
+![BackgroundImage](http://imageshack.us/a/img221/8606/iossimulatorscreenshotm.png)
+
+Everyone needs them and everyone hates writing them... Yes, it's the tutorial screen! I got sick of writing one for every app I made, so I went ahead and standardized it here.
+
+Features Include:
+- Left-to-Right and Right-to-Left language support
+- Delegate methods for handling current page and completion events
+- Easy UIView implementation that works with or without storyboards
 
 
 Manual installation
@@ -12,12 +20,6 @@ Manual installation
 - Add `MYIntroductionPanel.h` and `MYIntroductionPanel.m` to your project.
 - `#import "MYIntroductionView.h"` to use it in a class
 - Subscribe to the 'MYIntroductionDelegate' to enable delegate/callback interaction.
-
-
-Sample Images
-========================
-
-![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)  
 
 How To Use It?
 ========================
