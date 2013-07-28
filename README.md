@@ -17,7 +17,7 @@ Manual installation
 Sample Images
 ========================
 
-![BackgroundImage](http://img221.imageshack.us/img221/8606/iossimulatorscreenshotm.png)  
+![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)  
 
 How To Use It?
 ========================
