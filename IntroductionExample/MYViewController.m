@@ -47,24 +47,31 @@
     MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithimage:[UIImage imageNamed:@"SampleImage2"] title:@"Your Ticket!" description:@"MYIntroductionView is your ticket to a great tutorial or introduction!"];
     
     //STEP 2 Create IntroductionView
-    
     /*A standard version*/
     //MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerImage:[UIImage imageNamed:@"SampleHeaderImage.png"] panels:@[panel, panel2]];
-    
     
     /*A version with no header (ala "Path")*/
     //MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) panels:@[panel, panel2]];
     
     /*A more customized version*/
-    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) headerText:@"MYIntroductionView" panels:@[panel, panel2] languageDirection:MYLanguageDirectionLeftToRight];
-    [introductionView setBackgroundImage:[UIImage imageNamed:@"SampleBackground"]];
+    MYIntroductionView *introductionView = [[MYIntroductionView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) headerText:@"MYIntroductionView" panels:@[panel, panel2] languageDirection:MYLanguageDirectionLeftToRight];
+    
+    [introductionView setBackgroundColor:[UIColor colorWithRed:37.0/255 green:104.0/255 blue:154.0/255 alpha:1.0]];   
+    
+    [introductionView.BackgroundImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [introductionView.HeaderImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [introductionView.HeaderLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [introductionView.HeaderView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [introductionView.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [introductionView.SkipButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+
     
     
     //Set delegate to self for callbacks (optional)
     introductionView.delegate = self;
     
     //STEP 3: Show introduction view
-    [introductionView showInView:self.view];
+    [introductionView showInView:self.view animateDuration:0.0];
 }
 
 - (void)didReceiveMemoryWarning

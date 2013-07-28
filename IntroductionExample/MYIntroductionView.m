@@ -26,15 +26,15 @@
 #import "MYIntroductionView.h"
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithWhite:0 alpha:0.9]
-#define HEADER_VIEW_HEIGHT 50
-#define PAGE_CONTROL_PADDING 2
-#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0]
+#define HEADER_VIEW_HEIGHT 45
+#define PAGE_CONTROL_PADDING 1
+#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
 #define TITLE_TEXT_COLOR [UIColor whiteColor]
-#define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]
+#define DESCRIPTION_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0]
 #define DESCRIPTION_TEXT_COLOR [UIColor whiteColor]
 
 @implementation MYIntroductionView
-@synthesize delegate;
+@synthesize delegate, device, device_orientation;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,7 +43,7 @@
         // Initialization code
         [self initializeClassVariables];
         [self buildUIWithFrame:frame headerViewVisible:YES];
-        
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -58,6 +58,7 @@
         LanguageDirection = MYLanguageDirectionLeftToRight;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -72,6 +73,7 @@
         LanguageDirection = MYLanguageDirectionLeftToRight;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -86,6 +88,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderText:headerText];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -100,6 +103,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:YES];
         [self setHeaderImage:headerImage];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -128,6 +132,7 @@
         LanguageDirection = languageDirection;
         [self buildUIWithFrame:frame headerViewVisible:NO];
         [self setHeaderText:nil];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
     return self;
 }
@@ -135,9 +140,35 @@
 
 -(void)initializeClassVariables{
     panelViews = [[NSMutableArray alloc] init];
+    self.device = [self getCurrentDevice];
+    self.device_orientation = [self getCurrentOrientation];
 }
 
 #pragma mark - UI Builder Methods
+
+-(BOOL)getCurrentDevice {
+    return [[UIDevice currentDevice] userInterfaceIdiom]; //iPhone 1; iPad 0;
+}
+
+-(BOOL)getCurrentOrientation {
+    switch ([[UIApplication sharedApplication] statusBarOrientation]) {
+        case UIInterfaceOrientationPortrait:
+            return 0;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return 0;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            return 1;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            return 1;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
 
 -(void)buildUIWithFrame:(CGRect)frame headerViewVisible:(BOOL)headerViewVisible{
     self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
@@ -163,13 +194,14 @@
     }
     
     self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
-    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.HeaderView.backgroundColor = [UIColor clearColor];
     
     //Setup HeaderImageView
     self.HeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.HeaderView.frame.size.width, self.HeaderView.frame.size.height)];
     self.HeaderImageView.backgroundColor = [UIColor clearColor];
     self.HeaderImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.HeaderImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.HeaderView addSubview:self.HeaderImageView];
     self.HeaderImageView.hidden = YES;
     
@@ -179,25 +211,39 @@
     self.HeaderLabel.textColor = [UIColor whiteColor];
     self.HeaderLabel.backgroundColor = [UIColor clearColor];
     self.HeaderLabel.textAlignment = NSTextAlignmentCenter;
+    self.HeaderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.HeaderView addSubview:self.HeaderLabel];
     self.HeaderLabel.hidden = YES;
     [self addSubview:self.HeaderView];
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
-
-    self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, frame.size.width, 0)];
+    float centerPadding = frame.size.width;
+    float outerPadding = 0;
+    if (self.device == 0) { // iPhone
+        if (self.device_orientation == 1) { // 1 for landscape
+           self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
+        } else {
+            self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
+        }
+    } else { // iPad
+        if (self.device_orientation == 1) { // 1 for landscape
+            centerPadding = self.frame.size.height;
+            outerPadding = (self.frame.size.width - self.frame.size.height)/2;
+            NSLog(@"C:%f, O:%f", centerPadding, outerPadding);
+        }
+        self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(outerPadding, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height + 10, centerPadding, 0)];
+    }
+    
     self.ContentScrollView.pagingEnabled = YES;
     self.ContentScrollView.showsHorizontalScrollIndicator = NO;
     self.ContentScrollView.showsVerticalScrollIndicator = NO;
+    self.ContentScrollView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.ContentScrollView.delegate = self;
-    
-
     
     //If panels exist, build views for them and add them to the ContentScrollView
     if (Panels) {
         if (Panels.count > 0) {
-            
             if (LanguageDirection == MYLanguageDirectionLeftToRight) {
                 [self buildContentScrollViewLeftToRight];
             }
@@ -207,6 +253,7 @@
         }
     }
 }
+
 
 -(void)buildContentScrollViewLeftToRight{
     //A running x-coordinate. This grows for every page
@@ -297,7 +344,7 @@
     [panelView addSubview:panelTitleLabel];
     
     //Build description container;
-    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 10)];
+    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 0)];
     panelDescriptionTextView.scrollEnabled = NO;
     panelDescriptionTextView.backgroundColor = [UIColor clearColor];
     panelDescriptionTextView.textAlignment = NSTextAlignmentCenter;
@@ -305,6 +352,8 @@
     panelDescriptionTextView.font = DESCRIPTION_FONT;
     panelDescriptionTextView.text = panel.Description;
     panelDescriptionTextView.editable = NO;
+    [panelDescriptionTextView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    
     [panelView addSubview:panelDescriptionTextView];
     
     //Gather a few layout parameters
@@ -355,9 +404,15 @@
 
 -(void)buildFooterView{
     //Build Page Control
-    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
+    if (self.device == 1) {
+        self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.frame.size.width, 36)];
+    } else {
+        self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
+    }
+    [self.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     self.PageControl.numberOfPages = Panels.count;
     [self addSubview:self.PageControl];
+    
     
     //Build Skip Button
     if (LanguageDirection == MYLanguageDirectionRightToLeft) {
@@ -365,9 +420,11 @@
         self.PageControl.currentPage = panelViews.count - 1;
     }
     else {
-        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+//        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.height - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
     }
     
+    [self.SkipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
     [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.SkipButton];
@@ -391,7 +448,7 @@
         self.SkipButton.frame = CGRectMake(self.SkipButton.frame.origin.x, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), self.SkipButton.frame.size.width, self.SkipButton.frame.size.height);
         
     }
-    
+
     self.ContentScrollView.contentSize = CGSizeMake(self.ContentScrollView.contentSize.width, newPanelHeight);
 }
 
@@ -413,17 +470,23 @@
 
 -(void)setBackgroundImage:(UIImage *)backgroundImage{
     self.BackgroundImageView.image = backgroundImage;
+    [self.BackgroundImageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+}
+
+-(void)setBackgroundColor:(UIColor *)backgroundColor {
+    self.BackgroundImageView.backgroundColor = backgroundColor;
+    [self.BackgroundImageView setAutoresizingMask: UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
 }
 
 #pragma mark - Show/Hide
 
--(void)showInView:(UIView *)view{
+-(void)showInView:(UIView *)view animateDuration:(CGFloat)duration{
     //Add introduction view
     self.alpha = 0;
     [view addSubview:self];
     
     //Fade in
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:duration animations:^{
         self.alpha = 1;
     }];
 }
@@ -539,5 +602,6 @@
         }
     }
 }
+
 
 @end
