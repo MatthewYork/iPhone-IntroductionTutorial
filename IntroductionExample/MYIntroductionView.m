@@ -215,6 +215,12 @@
     [self.HeaderView addSubview:self.HeaderLabel];
     self.HeaderLabel.hidden = YES;
     [self addSubview:self.HeaderView];
+    
+    // Add a drop shadow to the header text
+    self.HeaderLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
+    self.HeaderLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    self.HeaderLabel.layer.shadowOpacity = 1.0f;
+    self.HeaderLabel.layer.shadowRadius = 1.0f;
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
@@ -336,6 +342,12 @@
         panelTitleLabel.backgroundColor = [UIColor clearColor];
         panelTitleLabel.textAlignment = NSTextAlignmentCenter;
         panelTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
+        // Add a drop shadow to the title text
+        panelTitleLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
+        panelTitleLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+        panelTitleLabel.layer.shadowOpacity = 1.0f;
+        panelTitleLabel.layer.shadowRadius = 1.0f;
     }
     else {
         panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
@@ -356,8 +368,14 @@
     
     [panelView addSubview:panelDescriptionTextView];
     
-    //Gather a few layout parameters
+    // Add a drop shadow to the description text
+    panelDescriptionTextView.userInteractionEnabled = false;
+    panelDescriptionTextView.layer.shadowColor = [[UIColor blackColor]CGColor];
+    panelDescriptionTextView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
+    panelDescriptionTextView.layer.shadowOpacity = 1.0f;
+    panelDescriptionTextView.layer.shadowRadius = 1.0f;
     
+    //Gather a few layout parameters
     //Get the maximum size the description text could be (screenHeight-panelParentContainerOrigin - footersize)
     CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
     
