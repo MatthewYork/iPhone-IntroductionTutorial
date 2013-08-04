@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "247"
          endingLineNumber = "247"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "248"
          endingLineNumber = "248"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "253"
          endingLineNumber = "253"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "276"
          endingLineNumber = "276"
-         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkName = "-buildContentScrollViewLeftToRight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "250"
          endingLineNumber = "250"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,8 +78,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "263"
          endingLineNumber = "263"
-         landmarkName = "-buildContentScrollViewRightToLeft"
-         landmarkType = "5">
+         landmarkName = "@implementation MYIntroductionView"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "246"
          endingLineNumber = "246"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -104,7 +104,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "267"
          endingLineNumber = "267"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewLeftToRight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -117,8 +117,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "488"
          endingLineNumber = "488"
-         landmarkName = "-scrollViewDidEndDecelerating:"
-         landmarkType = "5">
+         landmarkName = "@implementation MYIntroductionView"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -130,7 +130,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "260"
          endingLineNumber = "260"
-         landmarkName = "-buildContentScrollViewRightToLeft"
+         landmarkName = "-buildContentScrollViewWithFrame:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -143,7 +143,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "281"
          endingLineNumber = "281"
-         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkName = "-buildContentScrollViewLeftToRight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -156,7 +156,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "317"
          endingLineNumber = "317"
-         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkName = "-buildContentScrollViewRightToLeft"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -195,7 +195,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "284"
          endingLineNumber = "284"
-         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkName = "-buildContentScrollViewLeftToRight"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -208,7 +208,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "283"
          endingLineNumber = "283"
-         landmarkName = "-PanelViewForPanel:atXIndex:"
+         landmarkName = "-buildContentScrollViewLeftToRight"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
