@@ -420,6 +420,24 @@
      *xIndex += self.ContentScrollView.frame.size.width;
 }
 
+-(void)showPanelAtPageControl {
+    
+    LastPanelIndex = self.PageControl.currentPage;
+    self.CurrentPanelIndex = self.PageControl.currentPage;
+    
+    //Format and show new content
+    [self setContentScrollViewHeightForPanelIndex:self.CurrentPanelIndex animated:YES];
+    [self makePanelVisibleAtIndex:(NSInteger)self.CurrentPanelIndex];
+    
+    [self.ContentScrollView setContentOffset:CGPointMake(self.CurrentPanelIndex * 320, 0) animated:YES];
+    //Call Back, if applicable
+    if (LastPanelIndex != self.CurrentPanelIndex) { //Keeps from making the callback when just bouncing and not actually changing pages
+        if ([(id)delegate respondsToSelector:@selector(introductionDidChangeToPanel:withIndex:)]) {
+            [delegate introductionDidChangeToPanel:Panels[self.CurrentPanelIndex] withIndex:self.CurrentPanelIndex];
+        }
+    }
+}
+
 -(void)buildFooterView{
     //Build Page Control
     if (self.device == 1) {
@@ -428,6 +446,8 @@
         self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.frame.size.width - 185)/2, (self.ContentScrollView.frame.origin.y + self.ContentScrollView.frame.size.height + PAGE_CONTROL_PADDING), 185, 36)];
     }
     [self.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.PageControl addTarget:self action:@selector(showPanelAtPageControl) forControlEvents:UIControlEventValueChanged];
+
     self.PageControl.numberOfPages = Panels.count;
     [self addSubview:self.PageControl];
     
@@ -439,7 +459,7 @@
     }
     else {
 //        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
-        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.height - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
+        self.SkipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.ContentScrollView.frame.size.width - 80, self.PageControl.frame.origin.y, 80, self.PageControl.frame.size.height)];
     }
     
     [self.SkipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];

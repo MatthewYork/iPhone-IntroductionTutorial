@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C0E2DB817CE369400D18105 /* MYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E2DB717CE369300D18105 /* MYViewController.m */; };
 		F02BB21516E847B400E3D502 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB21416E847B400E3D502 /* UIKit.framework */; };
 		F02BB21716E847B400E3D502 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB21616E847B400E3D502 /* Foundation.framework */; };
 		F02BB21916E847B400E3D502 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F02BB21816E847B400E3D502 /* CoreGraphics.framework */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C0E2DB717CE369300D18105 /* MYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYViewController.m; sourceTree = "<group>"; };
 		F02BB21116E847B400E3D502 /* IntroductionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntroductionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F02BB21416E847B400E3D502 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F02BB21616E847B400E3D502 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,6 +104,7 @@
 				F02BB22316E847B400E3D502 /* MYAppDelegate.h */,
 				F02BB22416E847B400E3D502 /* MYAppDelegate.m */,
 				F02BB22C16E847B400E3D502 /* MYViewController.h */,
+				6C0E2DB717CE369300D18105 /* MYViewController.m */,
 				F02BB22F16E847B400E3D502 /* MYViewController.xib */,
 				F02BB24216E90F6A00E3D502 /* MYIntroductionView */,
 				F02BB21B16E847B400E3D502 /* Supporting Files */,
@@ -213,6 +216,7 @@
 				F02BB22516E847B400E3D502 /* MYAppDelegate.m in Sources */,
 				F02BB23916E847D600E3D502 /* MYIntroductionView.m in Sources */,
 				F02BB24116E8576100E3D502 /* MYIntroductionPanel.m in Sources */,
+				6C0E2DB817CE369400D18105 /* MYViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
