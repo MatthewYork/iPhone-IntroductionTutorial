@@ -18,3 +18,4 @@ DerivedData
 .idea/
 *.xcuserstate
 XXX.xcodeproj/project.xcworkspace/xcuserdata/xxx.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate

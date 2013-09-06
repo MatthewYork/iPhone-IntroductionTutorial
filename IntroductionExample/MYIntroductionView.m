@@ -230,7 +230,7 @@
         if (self.device_orientation == 1) { // 1 for landscape
            self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
         } else {
-            self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height - HEADER_VIEW_HEIGHT, frame.size.width, 0)];
+            self.ContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.HeaderView.frame.origin.y + self.HeaderView.frame.size.height, frame.size.width, 0)];
         }
     } else { // iPad
         if (self.device_orientation == 1) { // 1 for landscape
