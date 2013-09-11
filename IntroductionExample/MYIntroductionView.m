@@ -177,6 +177,13 @@
     [self buildHeaderViewWithFrame:frame visible:headerViewVisible];
     [self buildContentScrollViewWithFrame:frame];
     [self buildFooterView];
+    
+    [self.BackgroundImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [self.HeaderImageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.HeaderLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.HeaderView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.PageControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.SkipButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 }
 
 -(void)buildBackgroundImage{
@@ -193,7 +200,12 @@
         return;
     }
     
-    self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
+    float headerYOffset = 5;
+    if ([MYIntroductionView runningiOS7]) {
+        headerYOffset = headerYOffset + 20;
+    }
+    
+    self.HeaderView = [[UIView alloc] initWithFrame:CGRectMake(5, headerYOffset, frame.size.width - 10, HEADER_VIEW_HEIGHT)]; //Leave 5px padding on all sides
     self.HeaderView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.HeaderView.backgroundColor = [UIColor clearColor];
     
@@ -217,10 +229,12 @@
     [self addSubview:self.HeaderView];
     
     // Add a drop shadow to the header text
+    /*
     self.HeaderLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
     self.HeaderLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
     self.HeaderLabel.layer.shadowOpacity = 1.0f;
     self.HeaderLabel.layer.shadowRadius = 1.0f;
+     */
 }
 
 -(void)buildContentScrollViewWithFrame:(CGRect)frame{
@@ -307,7 +321,6 @@
         panelViewIndex++;
     }
     
-    
     [self makePanelVisibleAtIndex:panelViews.count-1];
     self.CurrentPanelIndex = panelViews.count-1;
     self.PageControl.currentPage = panelViews.count -1;
@@ -342,12 +355,13 @@
         panelTitleLabel.backgroundColor = [UIColor clearColor];
         panelTitleLabel.textAlignment = NSTextAlignmentCenter;
         panelTitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        
         // Add a drop shadow to the title text
+        /*
         panelTitleLabel.layer.shadowColor = [[UIColor blackColor]CGColor];
         panelTitleLabel.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
         panelTitleLabel.layer.shadowOpacity = 1.0f;
         panelTitleLabel.layer.shadowRadius = 1.0f;
+         */
     }
     else {
         panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
@@ -365,22 +379,29 @@
     panelDescriptionTextView.text = panel.Description;
     panelDescriptionTextView.editable = NO;
     [panelDescriptionTextView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    
+    [panelDescriptionTextView sizeToFit];
     [panelView addSubview:panelDescriptionTextView];
     
     // Add a drop shadow to the description text
+    /*
     panelDescriptionTextView.userInteractionEnabled = false;
     panelDescriptionTextView.layer.shadowColor = [[UIColor blackColor]CGColor];
     panelDescriptionTextView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f);
     panelDescriptionTextView.layer.shadowOpacity = 1.0f;
     panelDescriptionTextView.layer.shadowRadius = 1.0f;
+     */
     
     //Gather a few layout parameters
     //Get the maximum size the description text could be (screenHeight-panelParentContainerOrigin - footersize)
+    
     CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
     
     
     NSInteger descriptionHeight = panelDescriptionTextView.contentSize.height;
+    
+    if ([MYIntroductionView runningiOS7]) {
+        descriptionHeight = panelDescriptionTextView.frame.size.height;
+    }
     int contentWrappedScrollViewHeight = 0;
     if ((imageHeight + descriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
         contentWrappedScrollViewHeight = maxScrollViewHeight;
@@ -463,7 +484,7 @@
     }
     
     [self.SkipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    [self.SkipButton setTitle:@"Skip" forState:UIControlStateNormal];
+    [self.SkipButton setTitle:NSLocalizedString(@"Skip", nil) forState:UIControlStateNormal];
     [self.SkipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.SkipButton];
 }
@@ -641,5 +662,15 @@
     }
 }
 
+#pragma mark - Support Methods
+
++(BOOL)runningiOS7{
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    if (currSysVer.floatValue >= 7.0) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 @end
