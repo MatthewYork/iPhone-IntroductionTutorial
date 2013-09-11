@@ -341,13 +341,13 @@
     //Build panel now that we have all the desired dimensions
     UIView *panelView = [[UIView alloc] initWithFrame:CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, 0)];
     
-    CGFloat imageHeight = MIN(panel.Image.size.height, self.frame.size.width - 10);
-    
+    CGFloat panelContentHeight = MIN(panel.PanelContentView.frame.size.height, self.frame.size.width - 10);
+    CGFloat panelContentWidth = MIN(panel.PanelContentView.frame.size.width, self.ContentScrollView.frame.size.width);
     //Build title container (if applicable)
     CGRect panelTitleLabelFrame;
     UILabel *panelTitleLabel;
     if (![panel.Title isEqualToString:@""]) {
-        panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, [panel.Title sizeWithFont:TITLE_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height);
+        panelTitleLabelFrame = CGRectMake(10, panelContentHeight+5, self.ContentScrollView.frame.size.width - 20, [panel.Title sizeWithFont:TITLE_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height);
         panelTitleLabel = [[UILabel alloc] initWithFrame:panelTitleLabelFrame];
         panelTitleLabel.text = panel.Title;
         panelTitleLabel.font = TITLE_FONT;
@@ -364,7 +364,7 @@
          */
     }
     else {
-        panelTitleLabelFrame = CGRectMake(10, imageHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
+        panelTitleLabelFrame = CGRectMake(10, panelContentHeight+5, self.ContentScrollView.frame.size.width - 20, 0);
         panelTitleLabel = [[UILabel alloc] initWithFrame:panelTitleLabelFrame];
     }
     [panelView addSubview:panelTitleLabel];
@@ -403,29 +403,27 @@
         descriptionHeight = panelDescriptionTextView.frame.size.height;
     }
     int contentWrappedScrollViewHeight = 0;
-    if ((imageHeight + descriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
+    if ((panelContentHeight + descriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
         contentWrappedScrollViewHeight = maxScrollViewHeight;
-        imageHeight = contentWrappedScrollViewHeight-descriptionHeight - panelTitleLabelFrame.size.height - 10;
+        panelContentHeight = contentWrappedScrollViewHeight-descriptionHeight - panelTitleLabelFrame.size.height - 10;
     }
-    else if ((imageHeight+descriptionHeight + panelTitleLabelFrame.size.height) <= maxScrollViewHeight){
-        contentWrappedScrollViewHeight = imageHeight + panelTitleLabelFrame.size.height + descriptionHeight;
+    else if ((panelContentHeight+descriptionHeight + panelTitleLabelFrame.size.height) <= maxScrollViewHeight){
+        contentWrappedScrollViewHeight = panelContentHeight + panelTitleLabelFrame.size.height + descriptionHeight;
     }
 
     panelView.frame = CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, contentWrappedScrollViewHeight);
     
-    //Build image container
-    UIImageView *panelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, self.ContentScrollView.frame.size.width - 10, imageHeight)];
-    panelImageView.contentMode = UIViewContentModeScaleAspectFit;
-    panelImageView.backgroundColor = [UIColor clearColor];
-    panelImageView.image = panel.Image;
-    panelImageView.layer.cornerRadius = 3;
-    panelImageView.clipsToBounds = YES;
-    [panelView addSubview:panelImageView];
+    //Build panel container
+    panel.PanelContentView.frame = (CGRect) {
+        .origin = CGPointMake(5 + self.ContentScrollView.frame.size.width/2 - panelContentWidth/2, 0),
+        .size = CGSizeMake(panelContentWidth, panelContentHeight),
+    };
+    [panelView addSubview:panel.PanelContentView];
     
     
     //Update frames based on the new/scaled image size we just gathered
-    panelTitleLabel.frame = CGRectMake(10, imageHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
-    panelDescriptionTextView.frame = CGRectMake(0, imageHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
+    panelTitleLabel.frame = CGRectMake(10, panelContentHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
+    panelDescriptionTextView.frame = CGRectMake(0, panelContentHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
