@@ -27,8 +27,7 @@
 
 @interface MYIntroductionPanel : NSObject
 
-//Image
-@property (nonatomic, retain) UIImage *Image;
+@property (nonatomic, retain) UIView *PanelContentView;
 
 //Title
 @property (nonatomic, retain) NSString *Title;
@@ -39,6 +38,7 @@
 //Custom init method
 -(id)initWithimage:(UIImage *)image title:(NSString *)title description:(NSString *)description;
 -(id)initWithimage:(UIImage *)image description:(NSString *)description;
+-(id)initWithContentView:(UIView*)view;
 
 
 @end
