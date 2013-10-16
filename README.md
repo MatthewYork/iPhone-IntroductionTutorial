@@ -2,7 +2,7 @@ iPhone Introduction / Tutorial (MYIntroductionView)
 ================================
 
 ![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)
-![BackgroundImage](http://imageshack.us/a/img221/8606/iossimulatorscreenshotm.png)
+![BackgroundImage](https://raw.github.com/MatthewYork/iPhone-IntroductionTutorial/master/Resources/Images/IntercedeScreenshot.png)
 
 Everyone needs them and everyone hates writing them... Yes, it's the tutorial screen! I got sick of writing one for every app I made, so I went ahead and standardized it here.
 
@@ -10,6 +10,7 @@ Features Include:
 - Left-to-Right and Right-to-Left language support
 - Delegate methods for handling current page and completion events
 - Easy UIView implementation that works with or without storyboards
+- **NEW** Ability to use custom views in a panel instead of just images
 
 CocoaPods
 ========================
