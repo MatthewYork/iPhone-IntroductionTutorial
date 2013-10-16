@@ -347,9 +347,21 @@
     CGRect panelTitleLabelFrame;
     UILabel *panelTitleLabel;
     if (![panel.Title isEqualToString:@""]) {
-        panelTitleLabelFrame = CGRectMake(10, panelContentHeight+5, self.ContentScrollView.frame.size.width - 20, [panel.Title sizeWithFont:TITLE_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height);
+        float panelTitleHeight = 0;
+        if ([MYIntroductionView runningiOS7]) {
+            NSDictionary *stringAttributes = [NSDictionary dictionaryWithObject:TITLE_FONT forKey: NSFontAttributeName];
+            
+            panelTitleHeight = [panel.Title boundingRectWithSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:stringAttributes context:nil].size.height;
+            panelTitleHeight = ceilf(panelTitleHeight);
+        }
+        else {
+            panelTitleHeight = [panel.Title sizeWithFont:TITLE_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height;
+        }
+        
+        panelTitleLabelFrame = CGRectMake(10, panelContentHeight+5, self.ContentScrollView.frame.size.width - 20, panelTitleHeight);
         panelTitleLabel = [[UILabel alloc] initWithFrame:panelTitleLabelFrame];
         panelTitleLabel.text = panel.Title;
+        panelTitleLabel.numberOfLines = 0;
         panelTitleLabel.font = TITLE_FONT;
         panelTitleLabel.textColor = TITLE_TEXT_COLOR;
         panelTitleLabel.backgroundColor = [UIColor clearColor];
@@ -370,17 +382,15 @@
     [panelView addSubview:panelTitleLabel];
     
     //Build description container;
-    UITextView *panelDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 0)];
-    panelDescriptionTextView.scrollEnabled = NO;
-    panelDescriptionTextView.backgroundColor = [UIColor clearColor];
-    panelDescriptionTextView.textAlignment = NSTextAlignmentCenter;
-    panelDescriptionTextView.textColor = DESCRIPTION_TEXT_COLOR;
-    panelDescriptionTextView.font = DESCRIPTION_FONT;
-    panelDescriptionTextView.text = panel.Description;
-    panelDescriptionTextView.editable = NO;
-    [panelDescriptionTextView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    [panelDescriptionTextView sizeToFit];
-    [panelView addSubview:panelDescriptionTextView];
+    UILabel *panelDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.ContentScrollView.frame.size.width, 0)];
+    panelDescriptionLabel.backgroundColor = [UIColor clearColor];
+    panelDescriptionLabel.textAlignment = NSTextAlignmentCenter;
+    panelDescriptionLabel.textColor = DESCRIPTION_TEXT_COLOR;
+    panelDescriptionLabel.font = DESCRIPTION_FONT;
+    panelDescriptionLabel.numberOfLines = 0;
+    panelDescriptionLabel.text = panel.Description;
+    [panelDescriptionLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+    [panelView addSubview:panelDescriptionLabel];
     
     // Add a drop shadow to the description text
     /*
@@ -396,19 +406,28 @@
     
     CGFloat maxScrollViewHeight = self.frame.size.height - self.ContentScrollView.frame.origin.y - (36+PAGE_CONTROL_PADDING);
     
-    
-    NSInteger descriptionHeight = panelDescriptionTextView.contentSize.height;
-    
+    float panelDescriptionHeight = 0;
     if ([MYIntroductionView runningiOS7]) {
-        descriptionHeight = panelDescriptionTextView.frame.size.height;
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        NSDictionary *stringAttributes = @{NSFontAttributeName:DESCRIPTION_FONT, NSParagraphStyleAttributeName:paragraphStyle};
+        
+        panelDescriptionHeight = [panel.Description boundingRectWithSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:stringAttributes context:nil].size.height;
+        panelDescriptionHeight = ceilf(panelDescriptionHeight);
     }
+    else {
+        panelDescriptionHeight = [panel.Description sizeWithFont:DESCRIPTION_FONT constrainedToSize:CGSizeMake(self.ContentScrollView.frame.size.width - 20, 100) lineBreakMode:NSLineBreakByWordWrapping].height;
+    }
+    panelDescriptionHeight = panelDescriptionHeight + 10;
+    
     int contentWrappedScrollViewHeight = 0;
-    if ((panelContentHeight + descriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
+    if ((panelContentHeight + panelDescriptionHeight + panelTitleLabelFrame.size.height) > maxScrollViewHeight) {
         contentWrappedScrollViewHeight = maxScrollViewHeight;
-        panelContentHeight = contentWrappedScrollViewHeight-descriptionHeight - panelTitleLabelFrame.size.height - 10;
+        panelContentHeight = contentWrappedScrollViewHeight-panelDescriptionHeight - panelTitleLabelFrame.size.height - 10;
     }
-    else if ((panelContentHeight+descriptionHeight + panelTitleLabelFrame.size.height) <= maxScrollViewHeight){
-        contentWrappedScrollViewHeight = panelContentHeight + panelTitleLabelFrame.size.height + descriptionHeight;
+    else if ((panelContentHeight+panelDescriptionHeight + panelTitleLabelFrame.size.height) <= maxScrollViewHeight){
+        contentWrappedScrollViewHeight = panelContentHeight + panelTitleLabelFrame.size.height + panelDescriptionHeight;
     }
 
     panelView.frame = CGRectMake(*xIndex, 0, self.ContentScrollView.frame.size.width, contentWrappedScrollViewHeight);
@@ -423,7 +442,7 @@
     
     //Update frames based on the new/scaled image size we just gathered
     panelTitleLabel.frame = CGRectMake(10, panelContentHeight + 5, panelTitleLabel.frame.size.width, panelTitleLabel.frame.size.height);
-    panelDescriptionTextView.frame = CGRectMake(0, panelContentHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, descriptionHeight);
+    panelDescriptionLabel.frame = CGRectMake(0, panelContentHeight + panelTitleLabel.frame.size.height + 5, self.ContentScrollView.frame.size.width, panelDescriptionHeight);
     
     //Update xIndex
     *xIndex += self.ContentScrollView.frame.size.width;
