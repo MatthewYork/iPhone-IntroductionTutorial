@@ -1,6 +1,10 @@
 iPhone Introduction / Tutorial (MYIntroductionView)
 ================================
 
+### IMPORTANT! 
+### MYIntroductionView has been replaced by [MYBlurIntroductionView](https://github.com/MatthewYork/MYBlurIntroductionView)
+
+
 ![BackgroundImage](http://imageshack.us/a/img856/8606/iossimulatorscreenshotm.png)
 ![BackgroundImage](https://raw.github.com/MatthewYork/iPhone-IntroductionTutorial/master/Resources/Images/IntercedeScreenshot.png)
 
