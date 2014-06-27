@@ -68,5 +68,5 @@ Step 3 - Show Introduction View
 -----------------------
 
 ```objc
-[introductionView showInView:self.view];
+[introductionView showInView:self.view animateDuration:0.0];
 ```
